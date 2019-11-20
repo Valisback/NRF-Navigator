@@ -1,0 +1,70 @@
+ion-toolbar {
+    --background: transparent;
+    --ion-color-base: transparent !important;
+    }
+
+ion-content.background{
+    --background: url(/assets/homepage/background_home.jpg) no-repeat center center / cover;
+}
+
+#menuButton{
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+.app_title{
+    top:0;
+    left:0;
+    width: 80%;
+    height: fit-content;
+}
+
+.grid_container {
+    margin-top: 20px;
+    padding: 0;
+}
+
+.explanation_box{
+    padding: 5px 10px;
+    text-align: justify;
+    background-color: rgba(18, 171, 219, .65);
+    font-weight: bold;
+    color: white;
+}
+
+.explanation_box .explanation_box_title{
+    font-size: 1.7em;
+    padding-bottom: 2px;
+}
+
+.explanation_box .explanation_box_text{
+    font-size: 0.875em;
+}
+
+.category_box{
+    margin-top: 50px;
+    background-color: rgba(0, 0, 0, .8);
+}
+
+.category_retail, .category_cpg{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+ion-col.category_box_title, ion-col.category_box_description  {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    vertical-align: middle;
+  }
+.category_box_title{
+    color: rgba(18, 171, 219);
+    font-weight: bold;
+    font-size: 1.7em;
+}
+
+.category_box_description{
+    color: white;
+    font-size: 0.875em; 
+}

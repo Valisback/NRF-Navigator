@@ -1,0 +1,57 @@
+<ion-content no-bounce class="background" fullscreen>
+  <ion-button fill="clear" default id="menuButton" menuToggle right>
+    <ion-icon color="primary" name="menu"></ion-icon>
+  </ion-button>
+  <div class="app_title">
+    <img
+      src="/assets/homepage/Fixed_Shape_Text_2_VibrantBlue_RGB.png"
+      style="max-width: 100%; width: 100%; height: auto; "
+    />
+  </div>
+
+  <ion-grid class="grid_container">
+    <ion-row class="explanation_box">
+      <div class="explanation_box_title">
+        PICK YOUR TOUR
+      </div>
+
+      <div class="explanation_box_text">
+        To enhance your NRF experience, Capgemini has made a selection of the
+        most promising companies. Discover them here:
+      </div>
+    </ion-row>
+    <ion-row>
+      <ion-col class="category_box" size="10">
+        <div ion-activatable class="category_retail" (click)="openCategory('retail')">
+            <ion-grid style = "padding: 0;">
+                <ion-row>
+                  <ion-col class="category_box_title" size="5">
+                      RETAIL
+                  </ion-col>
+                  <ion-col class="category_box_description">
+                      From planning to analytics, meet our selection of companies
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+          </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="category_box" size="10" offset="2">
+        <div ion-activatable class="category_cpg"  (click)="openCategory('cpg')">
+          <ion-grid style = "padding: 0;">
+            <ion-row>
+              <ion-col class="category_box_description">
+                    From planning to analytics, meet our selection of companies
+              </ion-col>
+              <ion-col class="category_box_title" size="5">
+                  CPG
+              </ion-col>
+              
+            </ion-row>
+          </ion-grid>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

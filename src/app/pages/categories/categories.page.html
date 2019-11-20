@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>categories</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item button *ngFor="let area of (areas | async)" (click)="openCompaniesFromArea(area.name)">
+          {{area.index}}. {{ area.name }}
+        </ion-item>
+      </ion-list>
+
+      <ion-button (click) = "openFeaturedCompanies()"> View Featured Companies </ion-button>
+      
+</ion-content>

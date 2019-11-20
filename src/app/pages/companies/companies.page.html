@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>companies</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item button *ngFor="let cpy of companies" (click) = "openCompanyDetails(cpy.id)">
+          {{ cpy.name }} - Booth: {{cpy.booth}} / Floor: {{cpy.floor}}<br>
+          {{ cpy.experience }} <br> {{ cpy.description }} <br>
+          Contacts:
+          {{ cpy.mail }} - {{cpy.website}}
+        </ion-item>
+      </ion-list>
+</ion-content>
