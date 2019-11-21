@@ -7,14 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { CompaniesPageRoutingModule } from './companies-routing.module';
 
 import { CompaniesPage } from './companies.page';
+import { CompanyCardModule } from '../../shared/components/company-card/company-card.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CompaniesPageRoutingModule
+    CompaniesPageRoutingModule,
+    CompanyCardModule
   ],
-  declarations: [CompaniesPage]
+  declarations: [CompaniesPage
+  ]
 })
 export class CompaniesPageModule {}

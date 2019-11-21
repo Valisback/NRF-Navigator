@@ -4,6 +4,8 @@ import { map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Area } from '../../models/area';
 import { Company } from '../../models/company';
+import * as firebase from 'firebase/app';
+import 'firebase/storage';
 
 
 @Injectable({
@@ -12,12 +14,13 @@ import { Company } from '../../models/company';
 export class DatabaseService {
   private areas: Observable<Area[]>;
   private areaCollection: AngularFirestoreCollection<Area>;
+  storage: any;
 
   constructor(private afs: AngularFirestore) {
+    this.storage = firebase.storage();
     this.areaCollection = this.afs.collection<Area>('Area');
     this.areas = this.areaCollection.snapshotChanges().pipe(
       map(actions => {
-        console.log('ici', actions);
         return actions.map( a => {
           const data = a.payload.doc.data();
           const id = a.payload.doc.id;
@@ -32,13 +35,15 @@ export class DatabaseService {
   }
 
   getAreasByCategory(category: string): Observable<Area[]> {
-    this.areaCollection = this.afs.collection<Area>('Area', ref => ref.where('category', '==', category));
+    // tslint:disable-next-line: max-line-length
+    this.areaCollection = this.afs.collection<Area>('Area', ref => ref.orderBy('_index').where('category', 'array-contains', category.toLocaleLowerCase()));
     return this.areas = this.areaCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map( a => {
           const data = a.payload.doc.data();
           const id = a.payload.doc.id;
-          return { id, ...data};
+          return { id, ...data };
+
         });
       })
     );
@@ -52,6 +57,18 @@ export class DatabaseService {
         return area;
       })
     );
+  }
+
+
+  getImageUrl(areas) {
+    for ( let area of areas) {
+      const gsReference = this.storage.refFromURL(area.image);
+      gsReference.getDownloadURL().then((downloadURL) => {
+        console.log('DL URL: ', downloadURL);
+        area.image = downloadURL;
+      });
+    }
+
   }
 
 }

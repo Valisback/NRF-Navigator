@@ -1,0 +1,11 @@
+<div style="display: flex; flex-direction: column; align-content: center;" (click)="onClickedCard()">
+  
+  <img style="align-self:center; width: 100px; height: auto;" src = "{{company.logo}}">
+  <div>
+      <strong>{{ company.company }}</strong> - Booth: {{company.booth}} / Floor: {{company.floor}}<br>
+      {{ company.stage }} <br> {{ company.description }} <br>
+      Contacts:
+      {{ company.mail }} - {{company.website}}
+  </div>
+
+</div>

@@ -5,5 +5,15 @@
 </ion-header>
 
 <ion-content>
-<h1 *ngIf="cpy"> {{ cpy.name }} </h1>
+  <div *ngIf="company"> 
+    <h1 > {{ company.company }} </h1>
+    <img [src]="getImagePath()">
+    </div>
+
+  <ion-list>
+    <ion-list-header> Related Companies </ion-list-header>
+    <ion-item *ngFor="let rltCpy of relatedCompanies">
+        <app-company-card [company]="rltCpy"> </app-company-card>
+    </ion-item>
+  </ion-list>
 </ion-content>

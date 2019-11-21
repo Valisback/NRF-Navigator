@@ -31,7 +31,7 @@ export class DbCompanyService {
   }
 
   getCompaniesFromCatandArea(category: string): Observable<Company[]> {
-    this.companycollection = this.afs.collection<Company>('Companies', ref => ref.where('category', 'array-contains', category));
+    this.companycollection = this.afs.collection<Company>('Companies', ref => ref.where('category', 'in', [category, 'Both']));
     return this.companies = this.companycollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map( a => {
@@ -43,6 +43,20 @@ export class DbCompanyService {
     );
   }
 
+  getRelatedCompanies(category: string, stage: string, company: string): Observable<Company[]> {
+    // tslint:disable-next-line: max-line-length
+    this.companycollection = this.afs.collection<Company>('Companies', ref => ref.where('category', 'in', [category, 'Both']).where('stage', '==', stage));
+    return this.companies = this.companycollection.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map( a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data};   
+        });
+      })
+    );
+
+  }
 
   getCompany(id: string): Observable<Company> {
     return this.companycollection.doc<Company>(id).valueChanges().pipe(

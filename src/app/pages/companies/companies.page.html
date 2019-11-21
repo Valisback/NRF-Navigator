@@ -6,11 +6,31 @@
 
 <ion-content>
     <ion-list>
-        <ion-item button *ngFor="let cpy of companies" (click) = "openCompanyDetails(cpy.id)">
-          {{ cpy.name }} - Booth: {{cpy.booth}} / Floor: {{cpy.floor}}<br>
-          {{ cpy.experience }} <br> {{ cpy.description }} <br>
-          Contacts:
-          {{ cpy.mail }} - {{cpy.website}}
+        <ion-list-header>Filters</ion-list-header>
+      
+        <ion-item>
+          <ion-label>Stage</ion-label>
+          <ion-select [(ngModel)] = "stageFilter" (ionChange)="onFilterChanged()" multiple="true">
+            <div *ngFor="let area of currentAreas">
+              <ion-select-option multiple="true" value = "{{area}}">{{ area }}</ion-select-option>
+            </div>
+          </ion-select>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label>Floor</ion-label>
+          <ion-select [(ngModel)] = "floorFilter" (ionChange)="onFilterChanged()" multiple="true">
+            <ion-select-option value="1" >1st Floor</ion-select-option>
+            <ion-select-option value="3" >3rd Floor</ion-select-option>
+            <ion-select-option value="4">4th Floor</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+
+    <ion-list>
+      <ion-list-header> Featured Companies </ion-list-header> 
+        <ion-item *ngFor="let cpy of filteredCompanies">
+          <app-company-card [company]="cpy"></app-company-card>
         </ion-item>
       </ion-list>
 </ion-content>

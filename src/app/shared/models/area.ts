@@ -1,6 +1,8 @@
 export class Area {
     id?: string;
-    category: string;
+    image: string;
+    category: string[];
     name: string;
-    index: number;
+    _index: number;
+    selected: boolean;
 }

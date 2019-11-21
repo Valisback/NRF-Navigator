@@ -13,10 +13,12 @@ import { Observable } from 'rxjs';
 })
 export class CategoriesPage implements OnInit {
 
-  public areas: Observable<Area[]>;
-  public area: Observable<Area>;
+  public areas: Area[];
   private currentCategory;
   private selectedAreas: string[] = [];
+  private storage;
+
+  public defaultAreaBackground = "#ffffff";
 
   constructor( private dbService: DatabaseService,
                private route: ActivatedRoute,
@@ -28,17 +30,20 @@ export class CategoriesPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (params.cat !== undefined) {
         this.currentCategory = params.cat;
-        this.areas = this.dbService.getAreasByCategory(this.currentCategory);
-        console.log('areas: ', this.areas);
-
+        this.dbService.getAreasByCategory(this.currentCategory).subscribe( areas => {
+          this.areas = areas;
+        });
       }
     });
   }
 
-  openCompaniesFromArea(areaName) {
+  openCompaniesFromArea(area: Area) {
+    const areaName = area.name;
     if (!this.selectedAreas.includes(areaName)) {
+      area.selected = true;
       this.selectedAreas.push(areaName);
     } else {
+      area.selected = false;
       // If the element is already in the list of parameters, we remove it and deselect it
       const index = this.selectedAreas.indexOf(areaName);
       this.selectedAreas.splice(index, 1);
@@ -47,6 +52,15 @@ export class CategoriesPage implements OnInit {
 
   openFeaturedCompanies( ) {
     this.navCtrl.navigateRoot('companies?cat=' + this.currentCategory + '&area=' + this.selectedAreas);
+  }
+
+  getImageUrl(image) {
+    const gsReference = this.storage.refFromURL(image);
+    console.log(gsReference);
+    gsReference.getDownloadURL().then((downloadURL) => {
+      console.log('DL URL: ', downloadURL);
+      return downloadURL;
+    });
   }
 
 }
