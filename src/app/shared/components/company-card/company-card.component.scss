@@ -1,0 +1,33 @@
+.companyCard{
+    background-color: white;
+}
+
+.companyCard ion-icon{
+    font-size: 24px;
+}
+
+#imageWrapper{
+    display: flex;
+    width: 100%;
+    height: 120px;
+    max-height: 120px;
+    padding: 5px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+}
+
+#companyDescription, #companyLocation{
+    text-align: left;
+}
+
+.companyLogo{
+    margin: auto;
+    align-self: center;
+    max-width: 100%;
+    max-height: 120px;
+    height: auto;
+    width: auto;
+}
+

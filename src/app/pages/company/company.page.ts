@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Company } from 'src/app/shared/models/company';
 import { DbCompanyService } from 'src/app/shared/services/company/db-company.service';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, IonContent } from '@ionic/angular';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 
 @Component({
@@ -13,33 +13,97 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 })
 export class CompanyPage implements OnInit {
 
+  @ViewChild(IonContent, {static: false}) content: IonContent;
+
   public company: Company;
   public relatedCompanies: Company[] = [];
   public cpyImage;
+  carouselHeight = '100px';
+  images: string[];
+  mapImage: string;
+  whyExpanded = false;
+  locationExpanded = true;
+  contactExpanded = false;
+  noteExpanded = false;
+
+
   private currentId;
+  public items: any = [];
+  public companyLiked: boolean = false;
+
 
   constructor( private dbCpyService: DbCompanyService,
                private route: ActivatedRoute,
                private navCtrl: NavController,
                private domSanitizer: DomSanitizer
+  ) {
+                   // To be deleted:
+                   this.items = [
+                    { expanded: false },
+                    { expanded: false },
+                    { expanded: false },
+                    { expanded: false },
+                    { expanded: false },
+                    { expanded: false },
+                    { expanded: false },
+                    { expanded: false },
+                    { expanded: false }
+                  ];
+  }
 
-  ) { }
 
   getImagePath() {
     return this.domSanitizer.bypassSecurityTrustUrl(this.company.logo);
   }
 
   ngOnInit() {
+    this.carouselHeight = window.innerHeight / 2 + 'px';
     this.route.queryParams.subscribe(params => {
       if (params.id !== undefined) {
         this.currentId = params.id;
         this.dbCpyService.getCompany(this.currentId).subscribe( company => {
           this.company = company;
+          this.retrieveTechnoImages(company);
+          this.retrieveMapImage(company);
           this.retrieveRelatedCpies(company);
+          this.content.scrollToTop(400);
         });
       }
     });
+  }
 
+  retrieveTechnoImages( company: Company ) {
+    this.images = [];
+    let image;
+    if (company.techno_image1 != null) {
+      image = company.techno_image1;
+      console.log('Hey, ', image);
+      this.images.push(image);
+      console.log(this.images);
+
+      if (company.techno_image2 != null ) {
+        image = company.techno_image2;
+        console.log('Hey, ', image);
+
+        this.images.push(image);
+        if (company.techno_image3 != null ) {
+          image = this.domSanitizer.bypassSecurityTrustUrl(company.techno_image3);
+          console.log('Hey, ', image);
+
+          this.images.push(image);
+        }
+      }
+    }
+  }
+
+  retrieveMapImage( company: Company) {
+    if (company.floor === 1) {
+      this.mapImage = 'assets/maps/Floor1.png';
+    } else if (company.floor === 3) {
+      this.mapImage = 'assets/maps/Floor3.png';
+    } else {
+      this.mapImage = 'assets/maps/Floor4.png';
+    }
   }
 
   retrieveRelatedCpies( company: Company ) {
@@ -60,5 +124,24 @@ export class CompanyPage implements OnInit {
 
   }
 
+
+  // Should be modified, not so beautiful
+  expandItem(item) {
+    if ( item === 'whyExpanded') {
+      this.whyExpanded = !this.whyExpanded;
+    } else if ( item === 'locationExpanded' ) {
+      this.locationExpanded = !this.locationExpanded;
+    } else if ( item === 'contactExpanded' ) {
+      this.contactExpanded = !this.contactExpanded;
+    } else if ( item === 'noteExpanded' ) {
+      this.noteExpanded = !this.noteExpanded;
+    }
+  }
+
+  onLikeClicked() {
+    this.companyLiked = !this.companyLiked;
+  }
+
+  
 
 }

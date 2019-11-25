@@ -1,11 +1,19 @@
-<div style="display: flex; flex-direction: column; align-content: center;" (click)="onClickedCard()">
-  
-  <img style="align-self:center; width: 100px; height: auto;" src = "{{company.logo}}">
-  <div>
-      <strong>{{ company.company }}</strong> - Booth: {{company.booth}} / Floor: {{company.floor}}<br>
-      {{ company.stage }} <br> {{ company.description }} <br>
-      Contacts:
-      {{ company.mail }} - {{company.website}}
-  </div>
 
-</div>
+<ion-card class="companyCard" (click)="onClickedCard()">
+  <div id = "imageWrapper">
+      <img class="companyLogo" src = "{{company.logo}}">
+  </div>
+  <ion-card-header>
+    <ion-card-title> {{ company.company }}  </ion-card-title>
+    <ion-card-subtitle> <ion-icon name="pricetag" color="primary"> </ion-icon>{{company.tag}} </ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <div id = "companyLocation">
+        <ion-icon name="map" color="primary"></ion-icon> Booth #{{company.booth}} - Floor #{{company.floor}} <br>
+    </div>
+      <div id = "companyDescription" > 
+          <ion-icon name = "information-circle" color="primary"></ion-icon> {{company.description | slice:0:100 }}...
+      </div>
+  </ion-card-content>
+  <ion-ripple-effect></ion-ripple-effect>
+</ion-card>

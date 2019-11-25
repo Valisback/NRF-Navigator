@@ -1,7 +1,8 @@
 <ion-content no-bounce class="background" fullscreen>
-  <ion-button fill="clear" default id="menuButton" menuToggle right>
-    <ion-icon color="primary" name="menu"></ion-icon>
-  </ion-button>
+      <ion-menu-button fill="clear" color="primary" default id="menuButton" menuToggle right>
+        </ion-menu-button>
+      <ion-back-button id="backButton" color="warning"></ion-back-button>
+
   <div class="app_title">
     <img
       src="/assets/homepage/Fixed_Shape_Text_2_VibrantBlue_RGB.png"
@@ -38,7 +39,7 @@
     </ion-row>
     <ion-row>
       <ion-col class="category_box" size="10" offset="2">
-        <div ion-activatable class="category_cpg"  (click)="openCategory('Cpg')">
+        <div ion-activatable class="category_cpg"  (click)="openCategory('CPG')">
           <ion-grid style = "padding: 0;">
             <ion-row>
               <ion-col class="category_box_description">

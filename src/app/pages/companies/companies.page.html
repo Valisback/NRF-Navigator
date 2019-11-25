@@ -1,10 +1,5 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>companies</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+    <app-top-components></app-top-components>
     <ion-list>
         <ion-list-header>Filters</ion-list-header>
       
@@ -27,10 +22,9 @@
         </ion-item>
       </ion-list>
 
-    <ion-list>
-      <ion-list-header> Featured Companies </ion-list-header> 
-        <ion-item *ngFor="let cpy of filteredCompanies">
-          <app-company-card [company]="cpy"></app-company-card>
-        </ion-item>
-      </ion-list>
+    <ion-grid>
+      <ion-row *ngFor="let cpy of filteredCompanies"> 
+        <app-company-card [company]="cpy"></app-company-card>
+        </ion-row>
+      </ion-grid>
 </ion-content>

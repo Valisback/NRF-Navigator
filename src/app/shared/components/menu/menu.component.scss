@@ -1,0 +1,32 @@
+.logoMenu_Container {
+    height: 80%;
+    width: 80%;
+    padding: 10px;
+}
+
+
+.logoMenu_Container #logoMenu {
+    height: auto;
+    width: auto;
+}
+
+.menuItems {
+ padding: 0px;
+}
+
+
+.menuItems ion-item {
+    --padding-start: 0;
+}
+
+ion-icon {
+    font-size: 24px;
+}
+
+.menuItems #itemIcon{
+    padding: 0px 10px;
+}
+
+.menuItems #itemName {
+    padding: 10px;
+}

@@ -11,13 +11,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { MenuComponent } from 'src/app/shared/components/menu/menu.component';
+import { SlideshowModule } from 'ng-simple-slideshow';
+
 import { environment } from '../environments/environment';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    MenuComponent,
+    AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
+    SlideshowModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),

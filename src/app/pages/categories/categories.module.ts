@@ -5,11 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { CategoriesPageRoutingModule } from './categories-routing.module';
-
+import { TopComponentsModule } from 'src/app/shared/components/top-components/top-components.module'
 import { CategoriesPage } from './categories.page';
 
 @NgModule({
   imports: [
+    TopComponentsModule,
     CommonModule,
     FormsModule,
     IonicModule,

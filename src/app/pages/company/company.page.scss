@@ -1,0 +1,83 @@
+ion-content{
+    --ion-background-color:#2B2B2B;
+}
+
+.nonExpandableDetails {
+    padding: 10px;
+}
+
+.nonExpandableDetails .mainInfoTop{
+    vertical-align: middle;
+    align-items: center;
+}
+
+
+.companyDetails{
+    background-color: white;
+    padding: 0;
+}
+.companyDetails ion-icon{
+    font-size: 24px;
+}
+.companyDetails #imgWrapper{
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+    text-align: center;
+    width: 100%;
+    height: fit-content;
+    max-height: 120px;
+}
+
+.companyDetails #imgWrapper img{
+    max-width: 100%;
+    max-height: 120px;
+    object-fit: contain;
+    width: 100%;
+    height: auto;
+}
+.companyDetails #companyTags{
+    object-fit: contain;
+    font-size: 0.7em;
+    color: var(--ion-color-primary);
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.companyDetails #companyNews{
+    text-decoration: none;
+    font-style: italic;
+    color: black;
+}
+
+
+
+.expandableDetails ion-row{
+    padding: 5px 10px;
+    border-top-color: rgba(0, 0, 0, 0.1);
+    border-top-width: 2px;
+    border-top-style: solid;
+    cursor: pointer;
+}
+
+.expandableDetails app-accordion-panel{
+    width:100%
+}
+
+.expandableDetails .expandContact,.expandableDetails .expandNotes{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    vertical-align: middle;
+    width:100%
+}
+
+.expandableDetails .expandContact #mail, .expandableDetails .expandContact #website{
+    vertical-align: middle;
+    align-content: center;
+}
+
+.expandableDetails .expandNotes ion-textarea{
+    --padding-start: 0;
+}

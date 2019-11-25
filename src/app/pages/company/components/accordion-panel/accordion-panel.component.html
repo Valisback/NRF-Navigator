@@ -1,0 +1,11 @@
+<div class = "expandableTitle">
+  <div id = "text">
+      {{title}}
+  </div>
+  <div id = "icon">
+      <ion-icon *ngIf="expandable; else noExpanded" name="remove"></ion-icon>
+      <ng-template #noExpanded>
+          <ion-icon name="add"></ion-icon>
+      </ng-template>
+  </div>
+</div>

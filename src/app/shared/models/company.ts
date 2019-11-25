@@ -13,5 +13,8 @@ export class Company {
     mail: string;
     website: string;
     description: string;
+    techno_image1: string;
+    techno_image2: string;
+    techno_image3: string;
 }
 

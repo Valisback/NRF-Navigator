@@ -8,10 +8,13 @@ ion-content.background{
 }
 
 #menuButton{
+    z-index: 1000;
     position: fixed;
-    right: 0;
     top: 0;
+    right: 0;
 }
+
+
 .app_title{
     top:0;
     left:0;
