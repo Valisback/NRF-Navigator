@@ -1,0 +1,62 @@
+<ion-content>
+    <app-top-components></app-top-components>
+
+    <table style="height: 50px;">
+    </table>
+  <ion-card class = "contact-card">
+    <ion-card-header>
+      <ion-card-title>
+          Contact Us
+      </ion-card-title>
+      <ion-card-subtitle>
+          Thank you for your interest in Capgemini. Whatever your inquiry, we will direct you to the right contact information.
+      </ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content >
+      <form [formGroup]= "infoFormGroup" (ngSubmit)="onSubmit()">
+        <div class = "input-container">
+            <ion-label> First Name </ion-label>
+            <ion-input type="text" required="true" autofocus aria-autocomplete="true" formControlName="firstname" placeholder = "Enter your first name..."> </ion-input>
+        </div>
+        <div class = "input-container">
+            <ion-label> Last Name </ion-label>
+            <ion-input type="text" required="true"  aria-autocomplete="true" formControlName="lastname" placeholder = "Enter your last name..."> </ion-input>
+        </div>
+        <div class = "input-container">
+            <ion-label> Job Title </ion-label>
+            <ion-input type="text" required="true"  aria-autocomplete="true" formControlName="jobtitle" placeholder = "Enter your title..."> </ion-input>
+        </div>
+        <div class = "input-container">
+            <ion-label> Email </ion-label>
+            <ion-input type="email" required="true"  aria-autocomplete="true" formControlName="email" placeholder = "Enter your email address..."> </ion-input>
+        </div>
+        <div class = "input-container">
+            <ion-label> Phone </ion-label>
+            <ion-input type="tel" required="true"  aria-autocomplete="true" formControlName="phone" placeholder = "Enter your first phone number..."> </ion-input>
+        </div>
+        <div class = "input-container">
+            <ion-label> Company / Organization </ion-label>
+            <ion-input type="text" required="true"  aria-autocomplete="true" formControlName="organization" placeholder = "Enter your company/organization..."></ion-input>
+        </div>
+      
+        <div class = "input-container">
+            <ion-label> Your Message </ion-label>
+            <ion-textarea type="text" required="true"  rows="6" formControlName="message" placeholder = "Your messge here..."> </ion-textarea>
+        </div>
+      </form>
+        <div class = "button-group">
+          <ion-button id = "back-button"> Back </ion-button>
+          <ion-button id = "submit-button" [disabled]="infoFormGroup.invalid" color="warning" (click) = "onSubmit()"> Submit </ion-button>
+        </div>
+
+    </ion-card-content>
+
+  </ion-card>
+
+
+
+
+
+
+</ion-content>

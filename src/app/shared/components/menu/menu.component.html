@@ -8,15 +8,8 @@
   </ion-header>
   <ion-content>
     <ion-list class="menuItems">
-      <ion-item>
-        <div id="itemIcon">
-          <ion-icon name="search" slot="start" color="dark"></ion-icon>
-        </div>
-        <div id="itemName">
-          <ion-label>Search</ion-label>
-        </div>
-      </ion-item>
-      <ion-item>
+          <ion-searchbar></ion-searchbar>   
+      <ion-item href="https://www.capgemini.com/us-en/our-company/" routerDirection="forward">
         <div id="itemIcon">
           <ion-icon name="cafe" slot="start" color="dark"></ion-icon>
         </div>
@@ -24,7 +17,7 @@
           <ion-label>About Capgemini</ion-label>
         </div>
       </ion-item>
-      <ion-item>
+      <ion-item href="https://www.capgemini.com/service/applied-innovation-exchange/" routerDirection="forward">
         <div id="itemIcon">
         <ion-icon name="bulb" slot="start" color="dark"></ion-icon>
         </div>
@@ -33,7 +26,7 @@
         <ion-label>About the AIE</ion-label>
       </div>
     </ion-item>
-      <ion-item>
+      <ion-item type="button" href = '/contact' routerDirection="forward">
         <div id="itemIcon">
           <ion-icon name="mail" slot="start" color="dark"> </ion-icon>
         </div>

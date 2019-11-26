@@ -1,0 +1,64 @@
+ion-content{
+    --ion-background-color:#2B2B2B;
+}
+
+.contact-card{
+    background-color: white;
+}
+
+  
+  ion-input > placeholder {
+    color: rgba(0, 0, 0, 0.3);
+  }
+  
+  textarea {
+    width: 100%;
+    border: none;
+    height: 100px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: var(--dark);
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  textarea::placeholder {
+    color: rgba(0, 0, 0, 0.3);
+  }
+  
+  .input-container{
+    padding: 10px 0px;
+  }
+
+  .input-container ion-label{
+    font-weight: bolder;
+    font-size: 0.8em;
+  }
+ 
+  .input-container input{
+    font-size: 1.2em;
+  }
+
+  input:focus, textarea:focus {
+    border: 1px var(--ion-color-primary) solid !important;
+  }
+  
+
+  .ng-valid:not(form){
+    border: 1px green solid;
+
+  }
+  
+  .ng-invalid:not(form) {
+    border: 1px red solid;
+    /* width:  */
+  }
+  
+  .ng-invalid:not(form) {
+    border: 1px red solid;
+    /* width:  */
+  }
+  .ng-untouched:not(form) {
+    border: 1px  rgba(0, 0, 0, 0.3) solid;
+  }
+  

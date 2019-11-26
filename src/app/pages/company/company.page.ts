@@ -5,6 +5,8 @@ import { DbCompanyService } from 'src/app/shared/services/company/db-company.ser
 import { ActivatedRoute } from '@angular/router';
 import { NavController, IonContent } from '@ionic/angular';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { CacheService } from 'ionic-cache';
+
 
 @Component({
   selector: 'app-company',
@@ -35,20 +37,9 @@ export class CompanyPage implements OnInit {
   constructor( private dbCpyService: DbCompanyService,
                private route: ActivatedRoute,
                private navCtrl: NavController,
-               private domSanitizer: DomSanitizer
+               private domSanitizer: DomSanitizer,
+               private cache: CacheService
   ) {
-                   // To be deleted:
-                   this.items = [
-                    { expanded: false },
-                    { expanded: false },
-                    { expanded: false },
-                    { expanded: false },
-                    { expanded: false },
-                    { expanded: false },
-                    { expanded: false },
-                    { expanded: false },
-                    { expanded: false }
-                  ];
   }
 
 
@@ -67,6 +58,7 @@ export class CompanyPage implements OnInit {
           this.retrieveMapImage(company);
           this.retrieveRelatedCpies(company);
           this.content.scrollToTop(400);
+          this.dbCpyService.incrementCompanyViewCounter(this.currentId, company.view_counter);
         });
       }
     });
@@ -139,7 +131,19 @@ export class CompanyPage implements OnInit {
   }
 
   onLikeClicked() {
-    this.companyLiked = !this.companyLiked;
+    let likeCount = 0;
+    this.dbCpyService.getCompanyLikes(this.currentId).subscribe( count => {
+      likeCount = count;
+      let action;
+      this.companyLiked = !this.companyLiked;
+      if (this.companyLiked) {
+      action = 'increment';
+    } else {
+      action = 'decrement';
+    }
+      this.dbCpyService.changeCompanyLikeCounter(this.currentId, action, likeCount);
+    }
+    );
   }
 
   

@@ -9,6 +9,8 @@ export class Company {
     stage: string;
     logo: string;
     why: string;
+    view_counter: number;
+    like_counter: number;
     floor: number;
     mail: string;
     website: string;
