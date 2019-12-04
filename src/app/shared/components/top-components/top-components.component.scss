@@ -1,14 +1,16 @@
-#menuButton{
-    position: fixed;
-    z-index: 1000;
-    right: 0;
-    top: 0;
+ion-toolbar{
+    --background: transparent!important;
+    --ion-color-base: transparent !important;
+    -webkit-transition: opacity  0.5s ease !important;
+    -moz-transition: opacity 0.5s ease !important;
+    -o-transition: opacity 0.5s ease !important;
+    transition: opacity  0.5s ease !important;
+
 }
 
-#backButton{
-    z-index: 1000;
-    position: fixed;
-    top: 0;
-    left: 0;
+
+.show-background{
+    --background: black !important;
+
 }
 

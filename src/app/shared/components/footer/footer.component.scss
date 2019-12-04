@@ -1,0 +1,28 @@
+.footerContent {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.footerContent #footerText{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.1em;
+    text-align: left;
+
+}
+
+.footerContent #footerLogo{
+    padding: 20px;
+    width: 80%;
+}
+
+.footerContent #footerBoothLink{
+    text-align: center;
+    width: 80%;
+}

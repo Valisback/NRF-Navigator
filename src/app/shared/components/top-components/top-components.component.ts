@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NavController } from '@ionic/angular';
 
 @Component ({
@@ -7,6 +7,7 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./top-components.component.scss'],
 })
 export class TopComponentsComponent implements OnInit {
+  @Input() showToolbar: boolean;
 
   constructor(
     private navCtrl: NavController

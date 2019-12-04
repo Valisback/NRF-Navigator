@@ -9,11 +9,14 @@ import { CompaniesPageRoutingModule } from './companies-routing.module';
 
 import { CompaniesPage } from './companies.page';
 import { CompanyCardModule } from '../../shared/components/company-card/company-card.module';
+import { FooterModule } from '../../shared/components/footer/footer.module';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    FooterModule,
     IonicModule,
     TopComponentsModule,
     CompaniesPageRoutingModule,

@@ -14,10 +14,13 @@ import { AccordionPanelComponent } from './components/accordion-panel/accordion-
 
 import { ExpandableComponent } from 'src/app/shared/components/expandable/expandable.component';
 
+import { FooterModule } from 'src/app/shared/components/footer/footer.module'
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    FooterModule,
     SlideshowModule,
     IonicModule,
     TopComponentsModule,

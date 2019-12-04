@@ -5,7 +5,8 @@ import { DbCompanyService } from 'src/app/shared/services/company/db-company.ser
 import { ActivatedRoute } from '@angular/router';
 import { NavController, IonContent } from '@ionic/angular';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
-import { CacheService } from 'ionic-cache';
+import { Storage } from '@ionic/storage';
+import { ScrollDetail } from '@ionic/core';
 
 
 @Component({
@@ -23,13 +24,17 @@ export class CompanyPage implements OnInit {
   carouselHeight = '100px';
   images: string[];
   mapImage: string;
+  likedCpies: { [id: string]: boolean } = {};
+  notesCpies: { [id: string]: string } = {};
   whyExpanded = false;
   locationExpanded = true;
   contactExpanded = false;
   noteExpanded = false;
 
+  showToolbar = false;
 
-  private currentId;
+
+  public currentId;
   public items: any = [];
   public companyLiked: boolean = false;
 
@@ -38,7 +43,7 @@ export class CompanyPage implements OnInit {
                private route: ActivatedRoute,
                private navCtrl: NavController,
                private domSanitizer: DomSanitizer,
-               private cache: CacheService
+               private storage: Storage,
   ) {
   }
 
@@ -48,20 +53,61 @@ export class CompanyPage implements OnInit {
   }
 
   ngOnInit() {
+    this.retrieveStoredElements();
     this.carouselHeight = window.innerHeight / 2 + 'px';
     this.route.queryParams.subscribe(params => {
       if (params.id !== undefined) {
         this.currentId = params.id;
-        this.dbCpyService.getCompany(this.currentId).subscribe( company => {
-          this.company = company;
-          this.retrieveTechnoImages(company);
-          this.retrieveMapImage(company);
-          this.retrieveRelatedCpies(company);
-          this.content.scrollToTop(400);
-          this.dbCpyService.incrementCompanyViewCounter(this.currentId, company.view_counter);
-        });
+        this.retrieveCompany(this.currentId);
       }
     });
+  }
+
+  ionViewDidEnter() {
+    console.log('this just loaded');
+  }
+
+  retrieveStoredElements() {
+    this.storage.get('liked_Cpies').then( (value) => {
+      if (value !== null ) {
+        this.likedCpies = value;
+      } else {
+        this.likedCpies = {};
+      }
+    }).catch((err) => {
+    console.log(err);
+    });
+
+    this.storage.get('notes_Cpies').then( (value) => {
+      if (value !== null ) {
+        this.notesCpies = value;
+      } else {
+        this.notesCpies = {};
+      }
+    }).catch((err) => {
+    console.log(err);
+    });
+
+  }
+
+
+  retrieveCompany(id: string) {
+    this.dbCpyService.getCompany(id).subscribe( company => {
+      this.company = company;
+      this.retrieveTechnoImages(company);
+      this.retrieveMapImage(company);
+      this.retrieveRelatedCpies(company);
+      this.dbCpyService.incrementCompanyViewCounter(id, company.view_counter);
+      this.reInitiatePage();
+    });
+  }
+
+  reInitiatePage() {
+    this.content.scrollToTop(400);
+    this.whyExpanded = false;
+    this.locationExpanded = true;
+    this.contactExpanded = false;
+    this.noteExpanded = false;
   }
 
   retrieveTechnoImages( company: Company ) {
@@ -69,19 +115,14 @@ export class CompanyPage implements OnInit {
     let image;
     if (company.techno_image1 != null) {
       image = company.techno_image1;
-      console.log('Hey, ', image);
       this.images.push(image);
-      console.log(this.images);
 
       if (company.techno_image2 != null ) {
         image = company.techno_image2;
-        console.log('Hey, ', image);
 
         this.images.push(image);
         if (company.techno_image3 != null ) {
           image = this.domSanitizer.bypassSecurityTrustUrl(company.techno_image3);
-          console.log('Hey, ', image);
-
           this.images.push(image);
         }
       }
@@ -116,6 +157,13 @@ export class CompanyPage implements OnInit {
 
   }
 
+  onScroll(event: CustomEvent<ScrollDetail>) {
+    if (event && event.detail && event.detail.scrollTop) {
+    const scrollTop = event.detail.scrollTop;
+    this.showToolbar = scrollTop >= 200;
+    console.log("SCROLL EVENT - ", this.showToolbar);
+    }
+  }
 
   // Should be modified, not so beautiful
   expandItem(item) {
@@ -132,11 +180,12 @@ export class CompanyPage implements OnInit {
 
   onLikeClicked() {
     let likeCount = 0;
+    this.likedCpies[this.currentId] = !this.likedCpies[this.currentId];
+    this.storage.set('liked_Cpies', this.likedCpies);
     this.dbCpyService.getCompanyLikes(this.currentId).subscribe( count => {
       likeCount = count;
       let action;
-      this.companyLiked = !this.companyLiked;
-      if (this.companyLiked) {
+      if (this.likedCpies[this.currentId]) {
       action = 'increment';
     } else {
       action = 'decrement';
@@ -146,6 +195,8 @@ export class CompanyPage implements OnInit {
     );
   }
 
-  
+  onTextAreaFilled() {
+    this.storage.set('notes_Cpies', this.notesCpies);
+  }
 
 }

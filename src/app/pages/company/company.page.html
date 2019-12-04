@@ -1,5 +1,6 @@
-<ion-content [scrollEvents]="true">
-  <app-top-components></app-top-components>
+<app-top-components [(showToolbar)] = "showToolbar" ></app-top-components>
+
+<ion-content [scrollEvents]="true" fullscreen = "true" (ionScroll)="onScroll($event)">
 
   <div class="feature-section" [style.height]="carouselHeight">
     <slideshow [imageUrls]="images" [autoPlay]="true" [showArrows]="false" [autoPlayInterval]="5000" *ngIf="images"
@@ -15,7 +16,7 @@
         </div>
       </ion-col>
       <ion-col [size]="1">
-        <a *ngIf="!companyLiked; else likedIcon" (click)="onLikeClicked()">
+        <a *ngIf="!likedCpies[currentId]; else likedIcon" (click)="onLikeClicked()">
           <ion-icon name="heart-empty" color="primary"></ion-icon>
         </a>
         <ng-template #likedIcon>
@@ -88,7 +89,7 @@
         <div class = "expandContact">
         <div id = "mail">
           <p>
-              <ion-icon name = "mail" color="primary"></ion-icon>{{ company.mail}}
+              <ion-icon name = "pin" color="primary"></ion-icon>{{ company.headquarters}}
           </p>
         </div>
         <div id = "website">
@@ -104,16 +105,25 @@
           </app-accordion-panel>
       <app-expandable expandHeight="200px" style="width: 100%;" [expanded]="noteExpanded">
         <div class = "expandNotes">
-            <ion-textarea rows="6" placeholder="Enter your notes here..."></ion-textarea>
+            <ion-textarea rows="6" (ngModelChange)="onTextAreaFilled()" [(ngModel)]="notesCpies[currentId]" placeholder="Enter your notes here..."></ion-textarea>
         </div>
       </app-expandable>
     </ion-row>
   </div>
   </ion-grid>
 
-  <ion-grid>
+   <ion-grid>
+     <ion-row>
+      <div id="relatedCpiesTitle">
+       Related Companies:
+      </div>
+    </ion-row> 
     <ion-row *ngFor="let rltCpy of relatedCompanies">
       <app-company-card [company]="rltCpy"> </app-company-card>
     </ion-row>
   </ion-grid>
+
+
+  <app-footer></app-footer>
+
 </ion-content>

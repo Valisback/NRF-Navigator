@@ -1,9 +1,29 @@
+.cardWrapper{
+    width: 100%;
+    padding: 15px 15px 0px 15px;
+}
+
+.sc-ion-card-ios-h {
+    -webkit-margin-start: 10px!important;
+    margin-inline-start: 10px!important;
+    -webkit-margin-end: 10px!important;
+    margin-inline-end: 10px!important;
+    margin-top: 10px!important;
+    margin-bottom: 10px!important;
+}
+
 .companyCard{
     background-color: white;
+    width: auto;
 }
 
 .companyCard ion-icon{
     font-size: 24px;
+}
+
+.companyCard #companyName{
+    font-weight: 500;
+    font-size: 1.5em;
 }
 
 #imageWrapper{
@@ -25,8 +45,8 @@
 .companyLogo{
     margin: auto;
     align-self: center;
-    max-width: 100%;
-    max-height: 120px;
+    max-width: 85%;
+    max-height: 100px;
     height: auto;
     width: auto;
 }

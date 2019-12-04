@@ -1,8 +1,5 @@
+<app-top-components></app-top-components>
 <ion-content>
-    <app-top-components></app-top-components>
-
-    <table style="height: 50px;">
-    </table>
   <ion-card class = "contact-card">
     <ion-card-header>
       <ion-card-title>
@@ -46,7 +43,7 @@
         </div>
       </form>
         <div class = "button-group">
-          <ion-button id = "back-button"> Back </ion-button>
+          <ion-button id = "back-button" (click) = "onBack()"> Back </ion-button>
           <ion-button id = "submit-button" [disabled]="infoFormGroup.invalid" color="warning" (click) = "onSubmit()"> Submit </ion-button>
         </div>
 

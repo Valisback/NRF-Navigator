@@ -16,7 +16,6 @@ export class DbCompanyService {
     this.companycollection = this.afs.collection<Company>('Companies');
     this.companies = this.companycollection.snapshotChanges().pipe(
       map(actions => {
-        console.log('ici', actions);
         return actions.map( a => {
           const data = a.payload.doc.data();
           const id = a.payload.doc.id;

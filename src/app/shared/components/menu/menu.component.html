@@ -1,4 +1,4 @@
-<ion-menu side="end" menuId="first" type="overlay" contentId="menu-content">
+<ion-menu side="end" menuId="first" type="overlay" (ionWillClose)="closingNavSlideUp()" contentId="menu-content">
   <ion-header>
     <ion-toolbar color="primary">
       <div class="logoMenu_Container">
@@ -8,7 +8,7 @@
   </ion-header>
   <ion-content>
     <ion-list class="menuItems">
-          <ion-searchbar></ion-searchbar>   
+          <ion-searchbar (ionInput) = "onSearch($event)" placeholder = "Search for a company"></ion-searchbar>   
       <ion-item href="https://www.capgemini.com/us-en/our-company/" routerDirection="forward">
         <div id="itemIcon">
           <ion-icon name="cafe" slot="start" color="dark"></ion-icon>
@@ -35,5 +35,13 @@
         </div>
       </ion-item>
     </ion-list>
+
+    <ion-grid>
+      <ion-row *ngFor="let company of searchedCompanies">
+        <app-company-card [company]="company"> </app-company-card>
+      </ion-row>
+    </ion-grid>
+
+
   </ion-content>
 </ion-menu>

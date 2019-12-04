@@ -1,4 +1,18 @@
-<ion-menu-button fill="clear" color="primary" default id="menuButton" menuToggle right></ion-menu-button>
-<ion-button id="backButton" fill="clear" color="primary" (click) = "goBack()">
-    <ion-icon name="arrow-back"></ion-icon>
-</ion-button>
+<ion-header no-border>
+  <ion-toolbar translucent [class.show-background]="showToolbar">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" color="primary" (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button></ion-back-button>
+      <ion-menu-button
+        fill="clear"
+        color="primary"
+        default
+        menuToggle
+      ></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>

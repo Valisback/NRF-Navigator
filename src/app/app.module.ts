@@ -13,23 +13,25 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { MenuComponent } from 'src/app/shared/components/menu/menu.component';
+import { MenuModule } from 'src/app/shared/components/menu/menu.module';
 import { SlideshowModule } from 'ng-simple-slideshow';
 import { HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
 import { CacheModule } from 'ionic-cache';
 import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
-    MenuComponent,
     AppComponent],
   entryComponents: [],
   imports: [
+    MenuModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
     CacheModule.forRoot(),
     ReactiveFormsModule,
+    IonicStorageModule.forRoot(),
     SlideshowModule,
     IonicModule.forRoot(),
     AppRoutingModule,

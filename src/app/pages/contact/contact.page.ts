@@ -4,6 +4,9 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Contact } from './model/contact';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { NavController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
+
 
 
 @Component({
@@ -19,6 +22,8 @@ export class ContactPage implements OnInit {
     private formBuilder: FormBuilder,
     private afs: AngularFirestore,
     private db: AngularFireDatabase,
+    private navCtrl: NavController,
+    public toastController: ToastController
 
   ) {
     this.createForm();
@@ -67,9 +72,22 @@ export class ContactPage implements OnInit {
     let formRequest = { name, email, organization, message, date, html };
     this.db.list('/messages').push(formRequest);
     this.infoFormGroup.reset();
+    this.navCtrl.back();
+    this.presentToast();
 
   }
 
+  onBack() {
+    this.navCtrl.back();
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Your message has been sent successfully.',
+      duration: 2000
+    });
+    toast.present();
+  }
 
 
 }

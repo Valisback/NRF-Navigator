@@ -12,6 +12,7 @@ import { CacheService } from 'ionic-cache';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  content: any;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
