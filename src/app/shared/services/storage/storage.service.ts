@@ -30,6 +30,18 @@ constructor(private storage: Storage,
 }
 
 public loadData(): void {
+  this.storage.get('filteredCompanies').then( (value) => {
+
+    if (value !== null) {
+
+      this.filteredCompanies.next(value);
+    } else {
+
+      this.filteredCompanies = this.allCompanies;
+    }
+
+  });
+
   this.storage.get('allCompanies').then( (value) => {
 
     if (value !== null ) {
@@ -40,16 +52,10 @@ public loadData(): void {
         this.filteredCompanies.next(companies);
       });
     }
+
   });
 
-  this.storage.get('filteredCompanies').then( (value) => {
 
-    if (value !== null ) {
-      this.filteredCompanies.next(value);
-    } else {
-      this.filteredCompanies = this.allCompanies;
-    }
-  });
 
   this.storage.get('filters').then( (value) => {
 

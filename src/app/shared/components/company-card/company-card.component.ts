@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Company } from 'src/app/shared/models/company';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
@@ -13,8 +13,8 @@ import { Filter } from 'src/app/pages/home/models/filter';
 })
 export class CompanyCardComponent implements OnInit {
   @Input() company: Company;
-
-  FILTERS = ['category', 'stage', 'floor'];
+  @Input() filters: Filter[];
+  @Output() tagClicked = new EventEmitter<Filter>();
 
   companyTags: Filter[] = [];
 
@@ -26,58 +26,40 @@ export class CompanyCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.retrieveTags();
-  }
 
-  retrieveTags() {
-    this.companyTags = [];
-    if (this.company) {
-      for (const filt of this.FILTERS) {
-        let filtValue = this.company[filt].toString().toLowerCase();
-        if (filt === 'floor') {
-          let suffix;
-          filtValue = this.company[filt].toString().toLowerCase();
-          switch (filtValue) {
-            case '1' : {
-              suffix = 'st';
-              break;
-            }
-            case '2' : {
-              suffix = 'nd';
-              break;
-            }
-            case '3' : {
-              suffix = 'rd';
-              break;
-            }
-            default : {
-              suffix = 'th';
-              break;
-            }
-          }
-          filtValue = filtValue + suffix + ' floor';
+    if (this.filters) {
+      for (const filter of this.filters) {
+        const filteredCategory = filter.type;
+        let filteredCategoryValue;
+        if (filteredCategory === 'floor') {
+          filteredCategoryValue = filter.name[0];
+        } else {
+          filteredCategoryValue = filter.name;
         }
-        const tag = new Filter(filt, filtValue);
-        this.companyTags.push(tag);
+        if (
+          this.company[filteredCategory]
+            .toString()
+            .toLowerCase()
+            .includes(filteredCategoryValue)
+        ) {
+          const tag = filter;
+          this.companyTags.push(tag);
+        }
+        }
       }
     }
 
-  }
-  onClickedCard() {
+onClickedCard() {
     this.menuCtrl.close();
     this.navCtrl.navigateRoot('/company?id=' + this.company.id);
   }
 
-  onTagClicked(event: any, tag: Filter) {
+onTagClicked(event: any, tag: Filter) {
     event.cancelBubble = true;
     if (event.stopPropagation) {
       event.stopPropagation();
     }
-    if (tag.active === 'TRUE') {
-      tag.active = 'FALSE';
-    } else {
-      tag.active = 'TRUE';
-    }
+    this.tagClicked.emit(tag);
   }
 
 }

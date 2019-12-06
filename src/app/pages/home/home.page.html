@@ -61,38 +61,47 @@
   </ion-grid>
 </div>
 
-<ion-grid class = "tagArea">
-  <ion-row>
-    <div *ngFor="let filter of filters">
-        <app-tags [filter] = "filter" (click) = "onTagChosen(filter)" > </app-tags>
-    </div>
-  </ion-row>
+<div *ngIf="filters.length>0 && filteredCompanies; else noCompanies">
+    <ion-grid class = "tagArea">
+        <ion-row>
+          <div *ngFor="let filter of filters">
+              <app-tags [filter] = "filter" (click) = "onTagChosen(filter)" > </app-tags>
+          </div>
+        </ion-row>
+      
+      </ion-grid>
+      
+      <ion-grid>
+          <ion-row>
+              <div id="relatedCpiesTitle">
+               Featured Companies:
+              </div>
+            </ion-row> 
+          <div *ngIf="filteredCompanies.length !== 0; else noFilteredCpy">
+              <ion-row *ngFor="let cpy of filteredCompanies">
+                  <app-company-card [company]="cpy" [filters]="filters" (tagClicked)="onTagChosen($event)"></app-company-card>
+                </ion-row>
+          </div>
+          <ng-template #noFilteredCpy>
+              <ion-row>
+                  <div id="noCompanyWarning">
+                   Ooops, it seems that no company matches your criteria. <br>
+                    Change your tags or take a look at the list below:
+                   </div>
+                </ion-row> 
+              <ion-row *ngFor="let cpy of allCompanies">
+                <app-company-card [company]="cpy" [filters]="filters" (tagClicked)="onTagChosen($event)" ></app-company-card>
+              </ion-row>
+          </ng-template>
 
-</ion-grid>
+        </ion-grid>
+</div>
 
-<ion-grid>
-    <ion-row>
-        <div id="relatedCpiesTitle">
-         Featured Companies:
-        </div>
-      </ion-row> 
-    <ion-row *ngFor="let cpy of filteredCompanies">
-      <app-company-card [company]="cpy"></app-company-card>
-    </ion-row>
-
-    <div *ngIf="filteredCompanies.length === 0">
-      <ion-row>
-        <div id="noCompanyWarning">
-         Ooops, it seems that no company matches your criteria. <br>
-          Change your tags or take a look at the list below:
-         </div>
-      </ion-row> 
-    <ion-row *ngFor="let cpy of allCompanies">
-      <app-company-card [company]="cpy"></app-company-card>
-    </ion-row>
-    </div>
-  </ion-grid>
-
+<ng-template #noCompanies>
+  <div style="width: 100%; display: flex; justify-content: center; align-content: center; height: 50px;">
+      <ion-spinner name="dots" color="tertiary"></ion-spinner>
+  </div>
+</ng-template>
 
   <app-footer></app-footer>
 

@@ -16,11 +16,10 @@ export class HomePage implements OnInit, OnDestroy {
 
   retail = false;
   cpg = false;
-  allCompanies: Company[] = [];
-  filteredCompanies: Company[] = [];
+  allCompanies: Company[];
+  filteredCompanies: Company[];
   activeCategories: {[category: string]: boolean} = {};
-  filterTypes: string[] = [];
-  filters: Filter[] = [];
+  filters: Filter[];
 
   showToolbar = false;
 
@@ -65,8 +64,7 @@ export class HomePage implements OnInit, OnDestroy {
 
   initializeFilteringParams() {
     for (const filter of this.filters) {
-      if (!this.filterTypes.includes(filter.type)) {
-        this.filterTypes.push(filter.type);
+      if (!(filter.type in this.activeCategories)) {
         this.activeCategories[filter.type] = false;
       }
     }
@@ -76,7 +74,7 @@ export class HomePage implements OnInit, OnDestroy {
     this.navCtrl.navigateRoot('categories?cat=' + category);
   }
 
- 
+
   onTagChosen(filter: Filter) {
     let temporaryCpies: Company[] = [];
     const type = filter.type;
@@ -123,6 +121,14 @@ export class HomePage implements OnInit, OnDestroy {
       }
     }
     this.filteredCompanies = temporaryCpies;
+
+    // Sorting the returned list by floor and aplphabetical order
+    this.filteredCompanies.sort((a, b) => {
+      if (a.floor === b.floor) {
+        return  a.company > b.company ? 1 : -1;
+      }
+      return (a.floor > b.floor ) ? 1 : -1;
+    });
   }
 
 
