@@ -91,6 +91,7 @@ export class HomePage implements OnInit, OnDestroy {
     for (const elem of Object.keys(this.activeCategories)) {
       this.activeCategories[elem] = false;
     }
+    let reset = true;
 
     for (const cat of Object.keys(this.activeCategories)) {
       this.filteredCompanies = [];
@@ -98,7 +99,9 @@ export class HomePage implements OnInit, OnDestroy {
         if (genfilter.active === 'TRUE' && genfilter.type === cat) {
           this.activeCategories[cat] = true;
           for (const cpy of temporaryCpies) {
-
+            if (reset) {
+              cpy.nbActivateTags = 0;
+            }
             const filteredCategory = genfilter.type.toLowerCase();
             let filteredCategoryValue = genfilter.name.toLowerCase();
             if (filteredCategory === 'floor') {
@@ -111,9 +114,11 @@ export class HomePage implements OnInit, OnDestroy {
                 .toLowerCase()
                 .includes(filteredCategoryValue)
             ) {
+              cpy.nbActivateTags ++;
               this.filteredCompanies.push(cpy);
             }
           }
+          reset = false;
         }
       }
       if (this.activeCategories[cat] === true) {
@@ -122,12 +127,16 @@ export class HomePage implements OnInit, OnDestroy {
     }
     this.filteredCompanies = temporaryCpies;
 
-    // Sorting the returned list by floor and aplphabetical order
+    // Sorting the returned list:
+    // First by amount of tags matching the filters, then by floor and aplphabetical order
     this.filteredCompanies.sort((a, b) => {
-      if (a.floor === b.floor) {
-        return  a.company > b.company ? 1 : -1;
+      if (a.nbActivateTags === b.nbActivateTags) {
+        if (a.floor === b.floor) {
+          return  a.company > b.company ? 1 : -1;
+        }
+        return (a.floor > b.floor ) ? 1 : -1;
       }
-      return (a.floor > b.floor ) ? 1 : -1;
+      return (a.nbActivateTags > b.nbActivateTags ) ? 1 : -1;
     });
   }
 
