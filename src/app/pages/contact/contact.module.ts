@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { TopComponentsModule } from 'src/app/shared/components/top-components/top-components.module';
+import { TopComponentsModule } from 'src/app/shared/components/generic/header/top-components.module';
 
 import { IonicModule } from '@ionic/angular';
 

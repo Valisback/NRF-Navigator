@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController, IonContent } from '@ionic/angular';
 import { DbCompanyService } from 'src/app/shared/services/company/db-company.service';
-import { Company } from '../../models/company';
+import { Company } from '../../../models/company';
 import { Observable } from 'rxjs';
 
 

@@ -13,7 +13,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { MenuModule } from 'src/app/shared/components/menu/menu.module';
+import { MenuModule } from 'src/app/shared/components/generic/menu/menu.module';
 import { SlideshowModule } from 'ng-simple-slideshow';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';

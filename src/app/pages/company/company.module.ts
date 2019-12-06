@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 import { CompanyCardModule } from '../../shared/components/company-card/company-card.module';
-import { TopComponentsModule } from 'src/app/shared/components/top-components/top-components.module';
+import { TopComponentsModule } from 'src/app/shared/components/generic/header/top-components.module';
 import { SlideshowModule } from 'ng-simple-slideshow';
 
 import { CompanyPageRoutingModule } from './company-routing.module';
@@ -14,7 +14,7 @@ import { AccordionPanelComponent } from './components/accordion-panel/accordion-
 
 import { ExpandableComponent } from 'src/app/shared/components/expandable/expandable.component';
 
-import { FooterModule } from 'src/app/shared/components/footer/footer.module'
+import { FooterModule } from 'src/app/shared/components/generic/footer/footer.module';
 
 @NgModule({
   imports: [

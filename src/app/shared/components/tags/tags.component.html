@@ -1,0 +1,9 @@
+<ion-chip [color]= "filter.color" [ngClass] = "(filter.active === 'TRUE'? 'active '+filter.color : 'inactive')">
+  <ion-label  id="tagLabel" color = "filter.color">
+    {{filter.name}}
+  </ion-label>
+  <ion-icon *ngIf="filter.active === 'FALSE'; else inactiveicon" id="tagIcon" [name] = "filter.icon" color = "filter.color"></ion-icon>
+  <ng-template #inactiveicon>
+      <ion-icon id="tagIcon" [name] = "filter.icon" color = "tertiary"></ion-icon>
+  </ng-template>
+</ion-chip>

@@ -1,5 +1,7 @@
 app-top-components{
-    background-color: transparent!important;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
 }
 ion-content{
     --ion-background-color:#2B2B2B;
@@ -95,8 +97,8 @@ ion-content{
     color: white;
     font-weight: bold;
     font-size: 1.125em;
-
 }
+
 app-company-card{
     width: 100%;
 }

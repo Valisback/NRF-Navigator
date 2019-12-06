@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-import { CompanyCardModule } from '../company-card/company-card.module';
+import { CompanyCardModule } from '../../company-card/company-card.module';
 import { MenuComponent } from './menu.component';
 
 

@@ -63,10 +63,6 @@ export class CompanyPage implements OnInit {
     });
   }
 
-  ionViewDidEnter() {
-    console.log('this just loaded');
-  }
-
   retrieveStoredElements() {
     this.storage.get('liked_Cpies').then( (value) => {
       if (value !== null ) {
@@ -160,8 +156,7 @@ export class CompanyPage implements OnInit {
   onScroll(event: CustomEvent<ScrollDetail>) {
     if (event && event.detail && event.detail.scrollTop) {
     const scrollTop = event.detail.scrollTop;
-    this.showToolbar = scrollTop >= 200;
-    console.log("SCROLL EVENT - ", this.showToolbar);
+    this.showToolbar = scrollTop >= 50;
     }
   }
 
@@ -198,5 +193,7 @@ export class CompanyPage implements OnInit {
   onTextAreaFilled() {
     this.storage.set('notes_Cpies', this.notesCpies);
   }
+
+
 
 }

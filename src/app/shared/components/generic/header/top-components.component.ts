@@ -8,6 +8,8 @@ import { NavController } from '@ionic/angular';
 })
 export class TopComponentsComponent implements OnInit {
   @Input() showToolbar: boolean;
+  @Input() fixed = true;
+  @Input() homepage = false;
 
   constructor(
     private navCtrl: NavController

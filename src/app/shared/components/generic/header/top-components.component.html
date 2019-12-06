@@ -1,7 +1,8 @@
+<div class = "wrappingHeader" [ngStyle] = "{'position': fixed === true ? 'fixed' : 'relative'}">
 <ion-header no-border>
   <ion-toolbar translucent [class.show-background]="showToolbar">
-    <ion-buttons slot="start">
-      <ion-button fill="clear" color="primary" (click)="goBack()">
+    <ion-buttons *ngIf="!homepage" slot="start">
+      <ion-button fill="clear" color="tertiary" (click)="goBack()">
         <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -9,10 +10,11 @@
       <ion-back-button></ion-back-button>
       <ion-menu-button
         fill="clear"
-        color="primary"
+        color="tertiary"
         default
         menuToggle
       ></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+</div>
