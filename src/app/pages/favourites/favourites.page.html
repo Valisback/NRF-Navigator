@@ -1,0 +1,16 @@
+<ion-content>
+    <app-top-components fixed = 'false' showToolbar = 'true'></app-top-components>
+
+    <ion-grid>
+        <ion-row>
+         <div id="favouriteCpiesTitle">
+          Favorite Companies:
+         </div>
+       </ion-row> 
+       <ion-row *ngFor="let cpy of favouriteCompanies">
+         <app-company-card [company]="cpy"></app-company-card>
+       </ion-row>
+     </ion-grid>
+
+     <app-footer></app-footer>
+</ion-content>

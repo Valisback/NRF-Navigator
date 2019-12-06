@@ -14,9 +14,13 @@
       <ion-card-title id="companyName" *ngIf="company.logo">
         {{ company.company }}
       </ion-card-title>
-      <ion-card-subtitle>
-        <ion-icon name="pricetag" color="primary"> </ion-icon>{{ company.tag }}
-      </ion-card-subtitle>
+      <ion-grid style="width: 100%; max-width: 100%;">
+        <ion-row id="tags">
+            <div *ngFor="let tag of companyTags">
+                <app-tags [filter] = "tag" (click)="onTagClicked($event, tag)"> </app-tags>
+            </div>
+        </ion-row>
+      </ion-grid>
     </ion-card-header>
     <ion-card-content>
       <div id="companyLocation">

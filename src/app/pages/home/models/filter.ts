@@ -5,4 +5,10 @@ export class Filter {
     active: string;
     icon: string;
     color: string;
+
+    constructor(type: string, name: string) {
+        this.type = type;
+        this.name = name;
+        this.active = 'FALSE';
+    }
 }

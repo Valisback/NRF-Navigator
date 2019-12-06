@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { NavController, IonContent } from '@ionic/angular';
-import { DbCompanyService } from 'src/app/shared/services/company/db-company.service';
 import { Company } from '../../../models/company';
-import { Observable } from 'rxjs';
+import { StorageService } from 'src/app/shared/services/storage/storage.service';
 
 
 @Component({
@@ -16,16 +14,16 @@ export class MenuComponent implements OnInit {
   public searchValue: string;
   private allCompanies: Company[] = [];
   public searchedCompanies: Company[] = [];
+
   @ViewChild(IonContent, {static: false}) content: IonContent;
 
   constructor(
-    private navCtrl: NavController,
-    private dbService: DbCompanyService,
+    private storageService: StorageService,
   ) {
    }
 
   ngOnInit() {
-    this.dbService.getCompanies().subscribe( cpies => {
+    this.storageService.allCompanies.subscribe((cpies) => {
       this.allCompanies = cpies;
     });
   }

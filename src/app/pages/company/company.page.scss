@@ -50,9 +50,9 @@ ion-content{
     object-fit: contain;
     font-size: 0.7em;
     color: var(--ion-color-primary);
-    align-items: center;
+    align-items: flex-end;
     text-align: center;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 .companyDetails #companyNews{
@@ -101,4 +101,5 @@ ion-content{
 
 app-company-card{
     width: 100%;
+    max-width: 100%;
 }

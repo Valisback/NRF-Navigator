@@ -30,7 +30,7 @@ exports.sendContactMessage = functions.database.ref('/messages/{pushKey}').onWri
 
     
     const mailOptions = {
-      to: 'valentin.pereira@capgemini.com',
+      to: 'aie.newyork.nar@capgemini.com ',
       subject: ` [NRF2020][App] New Message from ${val.name} - ${val.organization}`,
       html: val.html
     };

@@ -3,7 +3,6 @@ import { MenuController, NavController } from '@ionic/angular';
 import { DbCompanyService } from 'src/app/shared/services/company/db-company.service';
 import { Company } from 'src/app/shared/models/company';
 import { Filter } from './models/filter';
-import { FiltersService } from 'src/app/shared/services/filters/filters.service';
 import { Storage } from '@ionic/storage';
 import { StorageService } from 'src/app/shared/services/storage/storage.service';
 import { ScrollDetail } from '@ionic/core';
@@ -28,10 +27,7 @@ export class HomePage implements OnInit, OnDestroy {
   constructor(
     private menu: MenuController,
     public navCtrl: NavController,
-    private dbCpyService: DbCompanyService,
-    private dbFilterService: FiltersService,
     private storageService: StorageService,
-    private storage: Storage,
 
   ) {}
 
@@ -94,11 +90,11 @@ export class HomePage implements OnInit, OnDestroy {
 
     temporaryCpies = this.allCompanies;
 
-    for (let elem in this.activeCategories) {
+    for (const elem of Object.keys(this.activeCategories)) {
       this.activeCategories[elem] = false;
     }
 
-    for (const cat of this.filterTypes) {
+    for (const cat of Object.keys(this.activeCategories)) {
       this.filteredCompanies = [];
       for (const genfilter of this.filters) {
         if (genfilter.active === 'TRUE' && genfilter.type === cat) {

@@ -15,12 +15,14 @@ import { AccordionPanelComponent } from './components/accordion-panel/accordion-
 import { ExpandableComponent } from 'src/app/shared/components/expandable/expandable.component';
 
 import { FooterModule } from 'src/app/shared/components/generic/footer/footer.module';
+import { TagsModule } from 'src/app/shared/components/tags/tags.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     FooterModule,
+    TagsModule,
     SlideshowModule,
     IonicModule,
     TopComponentsModule,

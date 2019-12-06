@@ -17,7 +17,7 @@
         </div>
       </ion-col>
       <ion-col [size]="1">
-        <a *ngIf="!likedCpies[currentId]; else likedIcon" (click)="onLikeClicked()">
+        <a *ngIf="!likedCpies[currentName]; else likedIcon" (click)="onLikeClicked()">
           <ion-icon name="heart-empty" color="primary"></ion-icon>
         </a>
         <ng-template #likedIcon>
@@ -29,20 +29,9 @@
       <ion-col>
         <ion-grid>
           <ion-row id="companyTags">
-            <div style="width: 40%; text-align: right;">
-              <ion-icon name="pricetag" color="primary"> </ion-icon>
-            </div>
-            <div style="width: 60%; text-align: left;">
-              <ion-label>{{company.tag}}</ion-label>
-            </div>
-          </ion-row>
-          <ion-row id="companyTags">
-            <div style="width: 40%; text-align: right;">
-              <ion-icon name="pricetag" color="primary"> </ion-icon>
-            </div>
-            <div style="width: 60%; text-align: left;">
-              <ion-label>{{company.stage}}</ion-label>
-            </div>
+              <div *ngFor="let tag of companyTags">
+                  <app-tags [filter] = "tag" (click)="tagClicked()"> </app-tags>
+              </div>
           </ion-row>
         </ion-grid>
       </ion-col>

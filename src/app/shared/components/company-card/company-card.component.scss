@@ -26,6 +26,19 @@
     font-size: 1.5em;
 }
 
+.companyCard #tags{
+    width: 100%;
+    max-width: 100%;
+    z-index: 100;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow: auto;
+    text-transform: lowercase;
+    font-weight: normal;
+}
+
 #imageWrapper{
     display: flex;
     width: 100%;
