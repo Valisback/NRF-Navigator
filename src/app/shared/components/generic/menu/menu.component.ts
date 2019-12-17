@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController, IonContent } from '@ionic/angular';
 import { Company } from '../../../models/company';
 import { StorageService } from 'src/app/shared/services/storage/storage.service';
+import { Filter } from 'src/app/pages/home/models/filter';
 
 
 @Component({
@@ -14,17 +15,22 @@ export class MenuComponent implements OnInit {
   public searchValue: string;
   private allCompanies: Company[] = [];
   public searchedCompanies: Company[] = [];
+  public filters: Filter[];
 
   @ViewChild(IonContent, {static: false}) content: IonContent;
 
   constructor(
     private storageService: StorageService,
+    
   ) {
    }
 
   ngOnInit() {
     this.storageService.allCompanies.subscribe((cpies) => {
       this.allCompanies = cpies;
+    });
+    this.storageService.filters.subscribe((filt) => {
+      this.filters = filt;
     });
   }
 

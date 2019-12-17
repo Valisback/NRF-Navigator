@@ -22,6 +22,8 @@ export class CompanyPage implements OnInit {
 
   FILTERS = ['category', 'stage', 'floor'];
   companyTags: Filter[] = [];
+  filters: Filter[];
+
 
 
   public company: Company;
@@ -36,6 +38,7 @@ export class CompanyPage implements OnInit {
   locationExpanded = true;
   contactExpanded = false;
   noteExpanded = false;
+  newsroomExpanded = false;
 
   showToolbar = false;
 
@@ -48,10 +51,8 @@ export class CompanyPage implements OnInit {
 
   constructor( private dbCpyService: DbCompanyService,
                private route: ActivatedRoute,
-               private navCtrl: NavController,
                private domSanitizer: DomSanitizer,
                private storageService: StorageService,
-               private storage: Storage,
   ) {
   }
 
@@ -61,7 +62,7 @@ export class CompanyPage implements OnInit {
   }
 
   ngOnInit() {
-    this.carouselHeight = window.innerHeight / 2 + 'px';
+    this.carouselHeight = 464 + 'px';
     this.storageService.loadStoredLikesAndNotes();
     this.storageService.likedCpies.subscribe((likedCpies) => {
       this.likedCpies = likedCpies;
@@ -74,6 +75,9 @@ export class CompanyPage implements OnInit {
         this.currentId = params.id;
         this.retrieveCompany(this.currentId);
       }
+    });
+    this.storageService.filters.subscribe((filt) => {
+      this.filters = filt;
     });
 }
 
@@ -132,6 +136,8 @@ retrieveTags() {
     this.locationExpanded = true;
     this.contactExpanded = false;
     this.noteExpanded = false;
+    this.newsroomExpanded = false;
+    this.showToolbar = false;
   }
 
   retrieveTechnoImages( company: Company ) {
@@ -164,10 +170,10 @@ retrieveTags() {
   }
 
   retrieveRelatedCpies( company: Company ) {
-    const stage = company.stage;
+    const floor = company.floor;
     const name = company.company;
     const category = company.category;
-    this.dbCpyService.getRelatedCompanies(category, stage, name).subscribe( relatedCpies => {
+    this.dbCpyService.getRelatedCompanies(category, floor).subscribe( relatedCpies => {
       // Treatment for removing the actual company from the Related companies
       // Note: this treatment is necessary since firebase doesn't provide a mechanism of unequality in its queries
       for ( const item of relatedCpies) {
@@ -182,13 +188,16 @@ retrieveTags() {
   }
 
   onScroll(event: CustomEvent<ScrollDetail>) {
-    if (event && event.detail && event.detail.scrollTop) {
+    if (event && event.detail && event.detail.currentY < 50) {
+      console.log(event.detail.currentY);
+      this.showToolbar = false;
+    } else if (event && event.detail && event.detail.scrollTop) {
     const scrollTop = event.detail.scrollTop;
     this.showToolbar = scrollTop >= 50;
     }
   }
 
-  // Should be modified, not so beautiful
+  // Should be modified, not best practice 
   expandItem(item) {
     if ( item === 'whyExpanded') {
       this.whyExpanded = !this.whyExpanded;
@@ -198,7 +207,9 @@ retrieveTags() {
       this.contactExpanded = !this.contactExpanded;
     } else if ( item === 'noteExpanded' ) {
       this.noteExpanded = !this.noteExpanded;
-    }
+    } else if ( item === 'newsroomExpanded' ) {
+      this.newsroomExpanded = !this.newsroomExpanded;
+  }
   }
 
   onLikeClicked() {

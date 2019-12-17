@@ -61,9 +61,9 @@ export class DbCompanyService {
     );
   }
 
-  getRelatedCompanies(category: string, stage: string, company: string): Observable<Company[]> {
+  getRelatedCompanies(category: string, floor: number): Observable<Company[]> {
     // tslint:disable-next-line: max-line-length
-    this.companycollection = this.afs.collection<Company>('Companies', ref => ref.where('category', 'in', [category, 'Both']).where('stage', '==', stage));
+    this.companycollection = this.afs.collection<Company>('Companies', ref => ref.where('floor', '==', floor).where('category', 'in', [category, 'Both']));
     return this.companies = this.companycollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map( a => {

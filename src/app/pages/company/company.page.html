@@ -5,58 +5,21 @@
 
   <div class="feature-section" [style.height]="carouselHeight">
     <slideshow [imageUrls]="images" [autoPlay]="true" [showArrows]="false" [autoPlayInterval]="5000" *ngIf="images"
-      [showDots]="true" [disableSwiping]="false"></slideshow>
+      [showDots]="true" [disableSwiping]="false">
+    </slideshow>
+    <div class="shader-top" [style.height]="carouselHeight">
+    </div>
+    <div class="shader-bottom" [style.height]="carouselHeight">
+    </div>
+  </div>
+
+  <div *ngIf="company && filters.length>0" class="company-content-unexpandable">
+    <app-company-card [company]="company" [detailed] = "true" [filters] = "filters" ></app-company-card>
   </div>
 
   <ion-grid class="companyDetails" *ngIf="company">
-    <div class = "nonExpandableDetails">
-    <ion-row class="mainInfoTop">
-      <ion-col [size]="5">
-        <div id="imgWrapper">
-          <img [src]="getImagePath()" />
-        </div>
-      </ion-col>
-      <ion-col [size]="1">
-        <a *ngIf="!likedCpies[currentName]; else likedIcon" (click)="onLikeClicked()">
-          <ion-icon name="heart-empty" color="primary"></ion-icon>
-        </a>
-        <ng-template #likedIcon>
-          <a (click)="onLikeClicked()">
-            <ion-icon name="heart" color="primary"></ion-icon>
-          </a>
-        </ng-template>
-      </ion-col>
-      <ion-col>
-        <ion-grid>
-          <ion-row id="companyTags">
-              <div *ngFor="let tag of companyTags">
-                  <app-tags [filter] = "tag"> </app-tags>
-              </div>
-          </ion-row>
-        </ion-grid>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col [size]="5">
-        <ion-icon name="map" color="primary"></ion-icon>
-        <ion-label>Booth #{{company.booth}} - Floor #{{company.floor}}</ion-label>
-      </ion-col>
-      <ion-col>
-        <a id="companyNews" href="{{company.news_link}} ">
-          "{{company.news_title}}"
-        </a>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col [size]="12">
-        <ion-icon name="information-circle" color="primary"></ion-icon>
-        <ion-label>{{company.description}} </ion-label>
-      </ion-col>
-    </ion-row>
-  </div>
-
 <div class = "expandableDetails">
-    <ion-row>
+     <ion-row>
       <app-accordion-panel [title]="'Why ' + company.company +'?'" [expandable]="whyExpanded" (click)="expandItem('whyExpanded')">
       </app-accordion-panel>
       <app-expandable expandHeight="200px" [expanded]="whyExpanded">
@@ -72,6 +35,13 @@
         <img *ngIf="mapImage" [src]="mapImage">
       </app-expandable>
     </ion-row>
+    <ion-row>
+      <app-accordion-panel [title]="'Newsroom'" [expandable]="newsroomExpanded" (click)="expandItem('newsroomExpanded')">
+        </app-accordion-panel>
+    <app-expandable expandHeight="200px" [expanded]="newsroomExpanded">
+      <a style="color: white" [href]="company.news_link">{{company.news_title}}</a> 
+    </app-expandable>
+  </ion-row>
     <ion-row >
         <app-accordion-panel [title]="'Contact'" [expandable]="contactExpanded" (click)="expandItem('contactExpanded')">
           </app-accordion-panel>
@@ -79,21 +49,21 @@
         <div class = "expandContact">
         <div id = "mail">
           <p>
-              <ion-icon name = "pin" color="primary"></ion-icon>{{ company.headquarters}}
+              <ion-icon name = "pin" color="secondary"></ion-icon>{{ company.headquarters}}
           </p>
         </div>
         <div id = "website">
           <p>
-              <ion-icon name = "globe" color="primary"></ion-icon> {{ company.website}}
+              <ion-icon name = "globe" color="secondary"></ion-icon> {{ company.website}}
           </p>
         </div>
       </div>
       </app-expandable>
     </ion-row>
-    <ion-row >
-        <app-accordion-panel [title]="'Add note'" [expandable]="noteExpanded" (click)="expandItem('noteExpanded')">
+    <ion-row id="last-row" >
+        <app-accordion-panel [title]="'Notes'" [expandable]="noteExpanded" (click)="expandItem('noteExpanded')">
           </app-accordion-panel>
-      <app-expandable expandHeight="200px" style="width: 100%;" [expanded]="noteExpanded">
+      <app-expandable  expandHeight="200px" style="width: 100%;" [expanded]="noteExpanded">
         <div class = "expandNotes">
             <ion-textarea rows="6" (ngModelChange)="onTextAreaFilled()" [(ngModel)]="notesCpies[currentId]" placeholder="Enter your notes here..."></ion-textarea>
         </div>
@@ -102,16 +72,29 @@
   </div>
   </ion-grid>
 
-   <ion-grid>
+   <ion-grid *ngIf="(relatedCompanies && relatedCompanies.length > 0 ); else norelatedcpy">
      <ion-row>
-      <div id="relatedCpiesTitle">
-       Related Companies:
-      </div>
+        <div id="related-company-list-title">
+            All Related companies
+          </div>
     </ion-row> 
     <ion-row *ngFor="let rltCpy of relatedCompanies">
-      <app-company-card [company]="rltCpy"> </app-company-card>
+      <app-company-card *ngIf = "filters" [company]="rltCpy" [filters]="filters"> </app-company-card>
     </ion-row>
   </ion-grid>
+
+  <ng-template #norelatedcpy>
+      <ion-grid>
+          <ion-row>
+             <div id="related-company-list-title">
+                 Other related companies
+               </div>
+         </ion-row> 
+         <ion-row>
+           There is no related company
+         </ion-row>
+       </ion-grid>
+  </ng-template>
 
 
   <app-footer></app-footer>

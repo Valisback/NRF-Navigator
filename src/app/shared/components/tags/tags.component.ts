@@ -9,16 +9,17 @@ import { Filter } from 'src/app/pages/home/models/filter';
 export class TagsComponent implements OnInit {
 
   @Input() filter: Filter;
+  @Input() backgroundColor? = 'black';
   Filtertype: string;
 
   constructor() { }
 
   ngOnInit() {
     if (this.filter.type === 'floor') {
-      this.filter.color = 'danger';
+      this.filter.color = 'tertiary';
       this.filter.icon = 'pin';
     } else {
-      this.filter.color = 'primary';
+      this.filter.color = 'tertiary';
       this.filter.icon = 'pricetag';
     }
   }

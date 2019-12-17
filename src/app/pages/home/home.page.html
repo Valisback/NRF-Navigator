@@ -2,81 +2,63 @@
 
     <app-top-components homepage = 'true' [(showToolbar)] = "showToolbar" ></app-top-components>
 
-  <div class="background">
-
-  <div class="app_title">
-    <img
-      src="/assets/homepage/Fixed_Shape_Text_2_VibrantBlue_RGB.png"
-      style="max-width: 100%; width: 100%; height: auto; "
-    />
+  <div #background class="background">
+  
+  <div #vector class="background-vect"></div>
+      <div class="shader-top">
+    </div>
+    <div class="shader-bottom">
+    </div>
+  <div class="app-title">
+    <div id="app-title-h1"> Welcome to the Future of Retail </div>
+    <div id="app-title-h2"> A companion app for NRF 2020 brought to you by Capgemini</div>
   </div>
 
-  <ion-grid class="grid_container">
-    <ion-row class="explanation_box">
-      <div class="explanation_box_title">
-        PICK YOUR TAGS
-      </div>
-
-      <div class="explanation_box_text">
-        To enhance your NRF experience, Capgemini has made a selection of the
-        most promising companies. Select your interests among the different tags and discover them here!
-      </div>
-    </ion-row>
-
-    <!-- <ion-row>
-      <ion-col class="category_box" size="10">
-        <div ion-activatable class="category_retail" (click)="openCategory('Retail')">
-            <ion-grid style = "padding: 0;">
-                <ion-row>
-                  <ion-col class="category_box_title" size="5">
-                      RETAIL
-                  </ion-col>
-                  <ion-col class="category_box_description">
-                      From planning to analytics, meet our selection of companies
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-          </div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col class="category_box" size="10" offset="2">
-        <div ion-activatable class="category_cpg"  (click)="openCategory('CPG')">
-          <ion-grid style = "padding: 0;">
-            <ion-row>
-              <ion-col class="category_box_description">
-                    From planning to analytics, meet our selection of companies
-              </ion-col>
-              <ion-col class="category_box_title" size="5">
-                  CPG
-              </ion-col>
-              
-            </ion-row>
-          </ion-grid>
-        </div>
-      </ion-col>
-    </ion-row>
-
-  -->
-  </ion-grid>
 </div>
 
 <div *ngIf="filters.length>0 && filteredCompanies; else noCompanies">
+    <ion-fab  [ngClass] ="fabButton && !fabButton_Active ? 'fabButton-active '+fabButton_Active : 'fabButton'" vertical="bottom" horizontal="start" style="position: fixed; bottom: 16px; left: 16px;" >
+        <ion-fab-button color="secondary" [activated]="fabButton_Active" >
+          <ion-icon style="font-size: 20px;" name="options" color="tertiary"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list id="fabButton-list" side="top">
+            <app-tags *ngFor = "let filter of filters" [filter] = "filter" (click) = "onTagChosen(filter, $event)" > </app-tags>
+          </ion-fab-list>
+      </ion-fab>
+
     <ion-grid class = "tagArea">
-        <ion-row>
-          <div *ngFor="let filter of filters">
+      <ion-row>
+        <div id="tagArea-title-topic">
+          Explore by topic
+        </div>
+
+      </ion-row>
+        <ion-row  id="tagArea-content-topic">
+          <div *ngFor="let filter of topicFilters">
               <app-tags [filter] = "filter" (click) = "onTagChosen(filter)" > </app-tags>
           </div>
         </ion-row>
+        <ion-row>
+            <div id="tagArea-title-filter">
+              Filter by floor
+            </div>
+    
+          </ion-row>
+            <ion-row  id="tagArea-content-topic">
+              <div *ngFor="let filter of floorFilters">
+                  <app-tags [filter] = "filter" (click) = "onTagChosen(filter)" > </app-tags>
+              </div>
+            </ion-row>
       
       </ion-grid>
       
-      <ion-grid>
+      <ion-grid class="grid-company-list">
           <ion-row>
-              <div id="relatedCpiesTitle">
-               Featured Companies:
+              <div id="company-list-title">
+                Viewing <span id="strong"> all </span> curated companies
               </div>
-            </ion-row> 
+      
+            </ion-row>
           <div *ngIf="filteredCompanies.length !== 0; else noFilteredCpy">
               <ion-row *ngFor="let cpy of filteredCompanies">
                   <app-company-card [company]="cpy" [filters]="filters" (tagClicked)="onTagChosen($event)"></app-company-card>

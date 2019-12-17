@@ -25,6 +25,22 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+@import './theme/fonts.scss';
+
 * {
-    font-family: Verdana;
+    font-family: 'Libre Baskerville';
+    font-size: 11px;
+}
+
+ion-content{
+    --background: var(--ion-color-primary);
+}
+
+ion-card{
+    border-radius: 0!important;
+}
+
+ion-grid {
+    --ion-grid-padding: 0px;
+    padding: 0px!important;
 }

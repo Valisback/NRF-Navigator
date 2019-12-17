@@ -1,5 +1,5 @@
 .expandableTitle{
-    padding: 10px 0;
+    padding: 15px 0;
     display: flex;
     width: 100%;
     vertical-align: middle;
@@ -11,6 +11,13 @@
 .expandableTitle #text{
     text-align: left;
     width: 80%;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: -0.52px;
+    color: #ffffff;
 }
 
 .expandableTitle #icon{
@@ -19,5 +26,7 @@
 }
 
 .expandableTitle #icon ion-icon{
-    font-size: 16px;
+    font-size: 18px;
+    color: var(--ion-color-primary-contrast);
+
 }

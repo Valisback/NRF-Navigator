@@ -3,9 +3,17 @@
   <ion-toolbar translucent [class.show-background]="showToolbar">
     <ion-buttons *ngIf="!homepage" slot="start">
       <ion-button fill="clear" color="tertiary" (click)="goBack()">
+        
         <ion-icon name="arrow-back"></ion-icon>
+        
       </ion-button>
+
     </ion-buttons>
+    <div style="padding-left: 5px; padding-top: 8px;">
+      <img src="assets/homepage/Capgemini_AIE.png"
+          class="Invent_Logo_WHITE_CMYK">
+    </div>
+
     <ion-buttons slot="end">
       <ion-back-button></ion-back-button>
       <ion-menu-button

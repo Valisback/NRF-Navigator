@@ -1,5 +1,6 @@
 .footerContent {
     padding: 20px;
+    padding-top: 50px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -11,18 +12,56 @@
 
 .footerContent #footerText{
     text-transform: uppercase;
-    font-weight: bold;
-    font-size: 1.1em;
-    text-align: left;
+    font-family: 'Open Sans';
+    font-size: 11px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2.18;
+    letter-spacing: 0.75px;
+    text-align: center;
+    color: var(--ion-color-primary-contrast);
 
 }
 
 .footerContent #footerLogo{
     padding: 20px;
     width: 80%;
+    max-width: 250px;
 }
 
-.footerContent #footerBoothLink{
+#footerBoothLink{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
     text-align: center;
     width: 80%;
+    margin-bottom: 20px;
+}
+
+#come-see-us, #come-see-us-link a{
+    text-transform: uppercase;
+    font-family: 'Open Sans';
+    font-size: 11px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2.91;
+    letter-spacing: 0.75px;
+    text-align: center;
+    color: var(--ion-color-primary-contrast);
+}
+
+hr{
+    margin: 15px 0px;
+    width: 36px;
+    height: 1px;
+    align-self: center;
+    background-color: var(--ion-color-primary-contrast);
+}
+
+#come-see-us-link a{
+    color: var(--ion-color-secondary);
+    text-decoration: none;
 }

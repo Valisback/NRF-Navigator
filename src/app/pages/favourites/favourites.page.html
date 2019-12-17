@@ -1,14 +1,14 @@
 <ion-content>
     <app-top-components fixed = 'false' showToolbar = 'true'></app-top-components>
 
-    <ion-grid>
+    <ion-grid *ngIf="favouriteCompanies && filters.length>0">
         <ion-row>
          <div id="favouriteCpiesTitle">
           Favorite Companies:
          </div>
        </ion-row> 
        <ion-row *ngFor="let cpy of favouriteCompanies">
-         <app-company-card [company]="cpy"></app-company-card>
+         <app-company-card [company]="cpy" [filters]="filters"></app-company-card>
        </ion-row>
      </ion-grid>
 

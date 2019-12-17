@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { MenuController } from '@ionic/angular';
 import { Filter } from 'src/app/pages/home/models/filter';
+import { DbCompanyService } from '../../services/company/db-company.service';
+import { StorageService } from '../../services/storage/storage.service';
 
 
 @Component({
@@ -14,20 +16,28 @@ import { Filter } from 'src/app/pages/home/models/filter';
 export class CompanyCardComponent implements OnInit {
   @Input() company: Company;
   @Input() filters: Filter[];
+  @Input() detailed? = false;
+  @Input() tag_display? = false;
   @Output() tagClicked = new EventEmitter<Filter>();
 
-  companyTags: Filter[] = [];
+  likedCpies: { [id: string]: boolean } = {};
+
+  companyTags: Filter[];
 
   constructor(
     private navCtrl: NavController,
-    private menuCtrl: MenuController
+    private menuCtrl: MenuController,
+    private dbCpyService: DbCompanyService,
+    private storageService: StorageService,
 
   ) {
   }
 
   ngOnInit() {
 
+    this.storageService.loadStoredLikes();
     if (this.filters) {
+      this.companyTags = [];
       for (const filter of this.filters) {
         const filteredCategory = filter.type;
         let filteredCategoryValue;
@@ -47,6 +57,9 @@ export class CompanyCardComponent implements OnInit {
         }
         }
       }
+    this.storageService.likedCpies.subscribe((likedCpies) => {
+        this.likedCpies = likedCpies;
+      });
     }
 
 onClickedCard() {
@@ -60,6 +73,27 @@ onTagClicked(event: any, tag: Filter) {
       event.stopPropagation();
     }
     this.tagClicked.emit(tag);
+  }
+
+  onLikeClicked(event: any) {
+    event.cancelBubble = true;
+    if (event.stopPropagation) {
+      event.stopPropagation();
+    }
+    let likeCount = 0;
+    this.likedCpies[this.company.company] = !this.likedCpies[this.company.company];
+    this.storageService.updateLikes(this.likedCpies);
+    this.dbCpyService.getCompanyLikes(this.company.id).subscribe( count => {
+      likeCount = count;
+      let action;
+      if (this.likedCpies[this.company.company]) {
+      action = 'increment';
+    } else {
+      action = 'decrement';
+    }
+      this.dbCpyService.changeCompanyLikeCounter(this.company.id, action, likeCount);
+    }
+    );
   }
 
 }

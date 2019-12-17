@@ -1,38 +1,50 @@
 <div class="cardWrapper">
   <ion-card class="companyCard" (click)="onClickedCard()">
-    <div id="imageWrapper">
+    <div *ngIf="!detailed" id="card-top-imageWrapper">
       <img
-        *ngIf="company.logo; else nologo"
-        class="companyLogo"
-        src="{{ company.logo }}"
+        *ngIf="company.techno_image1; else notechnoimg"
+        class="technoLogo"
+        src="{{ company.techno_image1 }}"
       />
-      <ng-template #nologo>
-        <h1 style="font-size: 4em;">{{ company.company }}</h1>
+      <ng-template #notechnoimg>
+        <h1 style="font-size: 4em;">{{ company.company }} - no logo</h1>
       </ng-template>
     </div>
     <ion-card-header>
-      <ion-card-title id="companyName" *ngIf="company.logo">
+        <div id="card-header-logoWrapper">
+            <img
+              *ngIf="company.logo;"
+              id="companyLogo"
+              src="{{ company.logo }}"
+            />
+            <ion-icon *ngIf="!likedCpies[company.company]; else favourite" (click)="onLikeClicked($event)" id= "favouriteIcon" name="star-outline"></ion-icon>
+            <ng-template #favourite>
+                <ion-icon id= "favouriteIcon" name="star" (click)="onLikeClicked($event)" color="secondary"></ion-icon>
+            </ng-template>
+          </div>
+      <ion-card-title id="card-header-title">
         {{ company.company }}
       </ion-card-title>
-      <ion-grid style="width: 100%; max-width: 100%;">
-        <ion-row id="tags">
-            <div *ngFor="let tag of companyTags">
-                <app-tags [filter] = "tag" (click)="onTagClicked($event, tag)"> </app-tags>
-            </div>
-        </ion-row>
-      </ion-grid>
+      <ion-card-subtitle id="card-header-subtitle">
+        Booth #{{company.booth}} - Floor #{{company.floor}}
+      </ion-card-subtitle>
     </ion-card-header>
-    <ion-card-content>
-      <div id="companyLocation">
-        <ion-icon name="map" color="primary"></ion-icon> Booth #{{
-          company.booth
-        }}
-        - Floor #{{ company.floor }} <br />
+    <ion-card-content [ngClass] = "detailed? 'card-content-detailed': 'card-content'">
+      <div id="card-content-description">
+        {{ company.description }}
       </div>
-      <div id="companyDescription">
-        <ion-icon name="information-circle" color="primary"></ion-icon>
-        {{ company.description | slice: 0:100 }}...
-      </div>
+      <ion-grid style="width: 100%; max-width: 100%;">
+          <ion-row>
+              <div id="card-content-tag-title">
+                  Related to
+                </div>
+          </ion-row>
+          <ion-row *ngIf="companyTags" id="card-content-tags">
+              <div *ngFor="let tag of companyTags">
+                  <app-tags [filter] = "tag" (click)="onTagClicked($event, tag)"> </app-tags>
+              </div>
+          </ion-row>
+        </ion-grid>
     </ion-card-content>
     <ion-ripple-effect></ion-ripple-effect>
   </ion-card>

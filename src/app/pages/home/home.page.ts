@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { MenuController, NavController } from '@ionic/angular';
 import { DbCompanyService } from 'src/app/shared/services/company/db-company.service';
 import { Company } from 'src/app/shared/models/company';
@@ -6,13 +6,17 @@ import { Filter } from './models/filter';
 import { Storage } from '@ionic/storage';
 import { StorageService } from 'src/app/shared/services/storage/storage.service';
 import { ScrollDetail } from '@ionic/core';
-
+import * as THREE from 'src/three.min.js';
+import RINGS from 'src/vanta.rings.min.js';
+ 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss']
 })
-export class HomePage implements OnInit, OnDestroy {
+export class HomePage implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('vector', {static: false}) background: ElementRef;
+
 
   retail = false;
   cpg = false;
@@ -20,10 +24,18 @@ export class HomePage implements OnInit, OnDestroy {
   filteredCompanies: Company[];
   activeCategories: {[category: string]: boolean} = {};
   filters: Filter[];
+  floorFilters: Filter[];
+  topicFilters: Filter[];
+  vantaEffect;
+  fabButton_Active = false;
+
 
   showToolbar = false;
+  fabButton = false;
+
 
   constructor(
+
     private menu: MenuController,
     public navCtrl: NavController,
     private storageService: StorageService,
@@ -39,6 +51,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
     this.storageService.allCompanies.subscribe((cpies) => {
       this.allCompanies = cpies;
     });
@@ -48,6 +61,17 @@ export class HomePage implements OnInit, OnDestroy {
     this.storageService.filters.subscribe((filt) => {
       this.filters = filt;
       this.initializeFilteringParams();
+    });
+  }
+
+  ngAfterViewInit() {
+    this.vantaEffect = RINGS({
+      el: this.background.nativeElement,
+      backgroundColor: '#000000',
+      height: '1200',
+      width:'1000',
+      THREE: THREE,
+      color: '#ed0677'
     });
   }
 
@@ -63,9 +87,16 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   initializeFilteringParams() {
+    this.floorFilters = [];
+    this.topicFilters = [];
     for (const filter of this.filters) {
       if (!(filter.type in this.activeCategories)) {
         this.activeCategories[filter.type] = false;
+      }
+      if (filter.name.toLocaleLowerCase().includes('floor')) {
+        this.floorFilters.push(filter);
+      } else {
+        this.topicFilters.push(filter);
       }
     }
   }
@@ -75,7 +106,14 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
 
-  onTagChosen(filter: Filter) {
+  onTagChosen(filter: Filter, event ?: any) {
+    if (event) {
+      event.cancelBubble = true;
+      if (event.stopPropagation) {
+        event.stopPropagation();
+      }
+    }
+    
     let temporaryCpies: Company[] = [];
     const type = filter.type;
     if (filter.active === 'FALSE') {
@@ -119,7 +157,13 @@ export class HomePage implements OnInit, OnDestroy {
             }
           }
           reset = false;
+        } else if (reset) {
+          for (const cpy of temporaryCpies) {
+            cpy.nbActivateTags = 0;
+          }
+          reset = false;
         }
+
       }
       if (this.activeCategories[cat] === true) {
         temporaryCpies = this.filteredCompanies;
@@ -142,9 +186,23 @@ export class HomePage implements OnInit, OnDestroy {
 
 
   onScroll(event: CustomEvent<ScrollDetail>) {
-    if (event && event.detail && event.detail.scrollTop) {
+    if (event && event.detail && event.detail.currentY < 50) {
+      console.log(event.detail.currentY);
+      this.showToolbar = false;
+    } else if (event && event.detail && event.detail.scrollTop) {
     const scrollTop = event.detail.scrollTop;
     this.showToolbar = scrollTop >= 50;
+    }
+
+    if (event && event.detail && event.detail.scrollTop) {
+      const scrollTop = event.detail.scrollTop;
+      this.fabButton = scrollTop >= 700;
+    }
+    if (event && event.detail && event.detail.deltaY ) {
+      const scrollTop = event.detail.deltaY;
+      if ( scrollTop <= -10 ) {
+        this.fabButton = false;
+      }
     }
   }
 

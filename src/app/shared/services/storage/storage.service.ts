@@ -71,6 +71,16 @@ public loadData(): void {
 
 }
 
+loadStoredLikes(): void {
+  this.storage.get('liked_Cpies').then( (value) => {
+    if (value !== null ) {
+      this.likedCpies.next(value);
+    } else {
+      this.likedCpies.next({});
+    }
+  });
+}
+
 loadStoredLikesAndNotes(): void {
   this.storage.get('liked_Cpies').then( (value) => {
     if (value !== null ) {

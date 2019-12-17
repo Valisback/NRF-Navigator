@@ -1,19 +1,20 @@
 .cardWrapper{
     width: 100%;
-    padding: 15px 15px 0px 15px;
+    padding: 0px 0px 0px 0px;
 }
 
-.sc-ion-card-ios-h {
-    -webkit-margin-start: 10px!important;
-    margin-inline-start: 10px!important;
-    -webkit-margin-end: 10px!important;
-    margin-inline-end: 10px!important;
-    margin-top: 10px!important;
-    margin-bottom: 10px!important;
+.sc-ion-card-ios-h, .sc-ion-card-md-h {
+    -webkit-margin-start: 0px!important;
+    margin-inline-start: 0px!important;
+    -webkit-margin-end: 0px!important;
+    margin-inline-end: 0px!important;
+    margin-top: -1px!important;
+    margin-bottom: 0px!important;
 }
 
 .companyCard{
-    background-color: white;
+    background-color: var(--ion-color-primary);
+    color: var(--ion-color-primary-contrast);
     width: auto;
 }
 
@@ -21,46 +22,105 @@
     font-size: 24px;
 }
 
-.companyCard #companyName{
-    font-weight: 500;
-    font-size: 1.5em;
+#card-header-title{
+    font-size: 31px;
+    letter-spacing: -1.2px;
+    font-weight: normal;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: var(--ion-color-primary-contrast);
 }
 
-.companyCard #tags{
+#card-header-subtitle{
+    font-family: 'Open Sans';
+    margin: 0;
+    font-size: 11px;
+    letter-spacing: 0.75px;
+    line-height: 2.18;
+    font-weight: normal;
+    color: var(--ion-color-primary-contrast);
+}
+
+#card-top-imageWrapper{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    overflow: hidden;
+    height: 183px;
+}
+
+
+
+#card-header-logoWrapper{
+    width: 100%;
+    height: 25px;
+
+}
+
+.card-content{
+    padding-top: 0px;
+    padding-bottom: 60px;
+}
+
+.card-content-detailed{
+    padding-top: 0px;
+    padding-bottom: 20px;
+}
+
+#card-content-description{
+    max-height: 100px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 90%;
+    margin-bottom: 20px;
+    font-size: 13px;
+    line-height: 1.54;
+    letter-spacing: -0.42px;
+    font-weight: normal;
+    color: var(--ion-color-primary-contrast);
+}
+
+#card-content-tag-title{
+    font-family: 'Open Sans';
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2.18;
+    letter-spacing: 0.75px;
+    color: var(--ion-color-primary-contrast);
+}
+
+.technoLogo{
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+}
+
+#companyLogo{
+    float: left;
+    height: 100%;
+    max-height: 100%;
+    width: auto;
+}
+
+#favouriteIcon{
+    position: relative;
+    float: right;
+    font-size: 25px;
+}
+
+#card-content-tags {
     width: 100%;
     max-width: 100%;
-    z-index: 100;
+    padding-top: 10px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
-    overflow: auto;
-    text-transform: lowercase;
+    text-transform: capitalize;
     font-weight: normal;
-}
-
-#imageWrapper{
-    display: flex;
-    width: 100%;
-    height: 120px;
-    max-height: 120px;
-    padding: 10px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    vertical-align: middle;
-}
-
-#companyDescription, #companyLocation{
-    text-align: left;
-}
-
-.companyLogo{
-    margin: auto;
-    align-self: center;
-    max-width: 85%;
-    max-height: 100px;
-    height: auto;
-    width: auto;
 }
 
