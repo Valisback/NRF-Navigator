@@ -61,10 +61,14 @@ export class DbCompanyService {
     );
   }
 
-  getRelatedCompanies(category: string, floor: number): Observable<Company[]> {
-    // tslint:disable-next-line: max-line-length
-    this.companycollection = this.afs.collection<Company>('Companies', ref => ref.where('floor', '==', floor).where('category', 'in', [category, 'Both']));
-    return this.companies = this.companycollection.snapshotChanges().pipe(
+  getRelatedTagCompanies(tag: string[]): Observable<Company[]> {
+    // The 2 following lines ensure that we look at both individual tags and the combination of both
+    if (tag.length > 1) {
+      const alltag = tag.join(', ');
+      tag.push(alltag);
+    }
+
+    return this.afs.collection<Company>('Companies', ref => ref.where('tag', 'in', tag)).snapshotChanges().pipe(
       map(actions => {
         return actions.map( a => {
           const data = a.payload.doc.data();

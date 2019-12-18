@@ -51,12 +51,14 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-
     this.storageService.allCompanies.subscribe((cpies) => {
       this.allCompanies = cpies;
     });
     this.storageService.filteredCompanies.subscribe((filteredCpies) => {
       this.filteredCompanies = filteredCpies;
+      if (this.filteredCompanies.length === 0) {
+        this.filteredCompanies = this.allCompanies;
+      }
     });
     this.storageService.filters.subscribe((filt) => {
       this.filters = filt;
@@ -68,8 +70,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     this.vantaEffect = RINGS({
       el: this.background.nativeElement,
       backgroundColor: '#000000',
-      height: '1200',
-      width:'1000',
       THREE: THREE,
       color: '#ed0677'
     });
@@ -89,6 +89,9 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   initializeFilteringParams() {
     this.floorFilters = [];
     this.topicFilters = [];
+    this.filters = this.filters.sort((a, b) => {
+      return (a.name > b.name ) ? 1 : -1;
+    });
     for (const filter of this.filters) {
       if (!(filter.type in this.activeCategories)) {
         this.activeCategories[filter.type] = false;
@@ -113,7 +116,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
         event.stopPropagation();
       }
     }
-    
+
     let temporaryCpies: Company[] = [];
     const type = filter.type;
     if (filter.active === 'FALSE') {
@@ -153,7 +156,9 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
                 .includes(filteredCategoryValue)
             ) {
               cpy.nbActivateTags ++;
-              this.filteredCompanies.push(cpy);
+              if (!this.filteredCompanies.includes(cpy)) {
+                this.filteredCompanies.push(cpy);
+              }
             }
           }
           reset = false;
@@ -180,27 +185,26 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
         }
         return (a.floor > b.floor ) ? 1 : -1;
       }
-      return (a.nbActivateTags > b.nbActivateTags ) ? 1 : -1;
+      return (a.nbActivateTags > b.nbActivateTags ) ? -1 : 1;
     });
   }
 
 
   onScroll(event: CustomEvent<ScrollDetail>) {
     if (event && event.detail && event.detail.currentY < 50) {
-      console.log(event.detail.currentY);
       this.showToolbar = false;
     } else if (event && event.detail && event.detail.scrollTop) {
     const scrollTop = event.detail.scrollTop;
     this.showToolbar = scrollTop >= 50;
     }
 
-    if (event && event.detail && event.detail.scrollTop) {
-      const scrollTop = event.detail.scrollTop;
-      this.fabButton = scrollTop >= 700;
-    }
     if (event && event.detail && event.detail.deltaY ) {
-      const scrollTop = event.detail.deltaY;
-      if ( scrollTop <= -10 ) {
+      const scrollTop = event.detail.scrollTop;
+
+      const scrollY = event.detail.deltaY;
+      if ( scrollTop >= 500 && scrollY <= -10 ) {
+        this.fabButton = true;
+      } else {
         this.fabButton = false;
       }
     }

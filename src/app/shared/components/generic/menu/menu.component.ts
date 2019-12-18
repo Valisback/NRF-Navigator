@@ -50,15 +50,14 @@ export class MenuComponent implements OnInit {
     }
 
     for (const cpy of this.allCompanies) {
-      if ( cpy.company === undefined || cpy.tag === undefined
-        || cpy.stage === undefined || cpy.category === undefined ) {
+      if ( cpy.company === undefined || cpy.tag === undefined) {
         return;
       }
 
       if (cpy.company.toLowerCase().includes(valueSearched)
       || cpy.tag.toLowerCase().includes(valueSearched)
-      || cpy.stage.toLowerCase().includes(valueSearched)
-      || cpy.category.toLowerCase().includes(valueSearched)) {
+      || valueSearched.includes(cpy.floor.toString())
+      || valueSearched.includes(cpy.booth.toString())) {
         this.searchedCompanies.push(cpy);
       }
     }

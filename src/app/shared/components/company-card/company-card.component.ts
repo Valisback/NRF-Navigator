@@ -50,7 +50,7 @@ export class CompanyCardComponent implements OnInit {
           this.company[filteredCategory]
             .toString()
             .toLowerCase()
-            .includes(filteredCategoryValue)
+            .includes(filteredCategoryValue.toLowerCase())
         ) {
           const tag = filter;
           this.companyTags.push(tag);

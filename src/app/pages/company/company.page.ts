@@ -84,7 +84,10 @@ export class CompanyPage implements OnInit {
 retrieveTags() {
   this.companyTags = [];
   if (this.company) {
-    for (const filt of this.FILTERS) {
+    for (let filt of this.FILTERS) {
+      if (!this.company[filt]) {
+        break;
+      }
       let filtValue = this.company[filt].toString().toLowerCase();
       if (filt === 'floor') {
         let suffix;
@@ -143,16 +146,16 @@ retrieveTags() {
   retrieveTechnoImages( company: Company ) {
     this.images = [];
     let image;
-    if (company.techno_image1 != null) {
+    if (company.techno_image1 !== null && company.techno_image1 !== '') {
       image = company.techno_image1;
       this.images.push(image);
 
-      if (company.techno_image2 != null ) {
+      if (company.techno_image2 !== null && company.techno_image2 !== '') {
         image = company.techno_image2;
 
         this.images.push(image);
-        if (company.techno_image3 != null ) {
-          image = this.domSanitizer.bypassSecurityTrustUrl(company.techno_image3);
+        if (company.techno_image3 !== null && company.techno_image3 !== '' ) {
+          image = company.techno_image3;
           this.images.push(image);
         }
       }
@@ -172,8 +175,10 @@ retrieveTags() {
   retrieveRelatedCpies( company: Company ) {
     const floor = company.floor;
     const name = company.company;
-    const category = company.category;
-    this.dbCpyService.getRelatedCompanies(category, floor).subscribe( relatedCpies => {
+    const tag = company.tag.split(', ');
+    this.relatedCompanies = [];
+    this.dbCpyService.getRelatedTagCompanies(tag).subscribe( relatedCpies => {
+
       // Treatment for removing the actual company from the Related companies
       // Note: this treatment is necessary since firebase doesn't provide a mechanism of unequality in its queries
       for ( const item of relatedCpies) {
@@ -182,14 +187,14 @@ retrieveTags() {
           relatedCpies.splice(index, 1);
         }
       }
-      this.relatedCompanies = relatedCpies;
+      this.relatedCompanies =  this.relatedCompanies.concat(relatedCpies);
+
     });
 
   }
 
   onScroll(event: CustomEvent<ScrollDetail>) {
     if (event && event.detail && event.detail.currentY < 50) {
-      console.log(event.detail.currentY);
       this.showToolbar = false;
     } else if (event && event.detail && event.detail.scrollTop) {
     const scrollTop = event.detail.scrollTop;

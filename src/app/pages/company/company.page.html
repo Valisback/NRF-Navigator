@@ -4,8 +4,8 @@
     <app-top-components [(showToolbar)] = "showToolbar" ></app-top-components>
 
   <div class="feature-section" [style.height]="carouselHeight">
-    <slideshow [imageUrls]="images" [autoPlay]="true" [showArrows]="false" [autoPlayInterval]="5000" *ngIf="images"
-      [showDots]="true" [disableSwiping]="false">
+    <slideshow  [imageUrls]="images" [autoPlay]="true" [showArrows]="false" [autoPlayInterval]="5000" *ngIf="images" [disableSwiping]="false" 
+      [showDots]="true">
     </slideshow>
     <div class="shader-top" [style.height]="carouselHeight">
     </div>
