@@ -16,7 +16,7 @@
 
 </div>
 
-<div *ngIf="filters.length>0 && filteredCompanies; else noCompanies">
+<div *ngIf="filters.length>0 && allCompanies && filteredCompanies; else noCompanies">
     <ion-fab  [ngClass] ="fabButton && !fabButton_Active ? 'fabButton-active '+fabButton_Active : 'fabButton'" vertical="bottom" horizontal="start" style="position: fixed; bottom: 16px; left: 16px;" >
         <ion-fab-button color="secondary" [activated]="fabButton_Active" >
           <ion-icon style="font-size: 20px;" name="options" color="tertiary"></ion-icon>
@@ -53,24 +53,26 @@
       </ion-grid>
       
       <ion-grid class="grid-company-list">
-          <ion-row>
+
+          <div *ngIf="filteredCompanies.length !== 0; else noFilteredCpy">
+            <ion-row>
               <div id="company-list-title">
                 Viewing <span id="strong"> all </span> curated companies
               </div>
       
             </ion-row>
-          <div *ngIf="filteredCompanies.length !== 0; else noFilteredCpy">
               <ion-row *ngFor="let cpy of filteredCompanies">
                   <app-company-card [company]="cpy" [filters]="filters" (tagClicked)="onTagChosen($event)"></app-company-card>
                 </ion-row>
           </div>
           <ng-template #noFilteredCpy>
-              <ion-row>
-                  <div id="noCompanyWarning">
-                   Ooops, it seems that no company matches your criteria. <br>
-                    Change your tags or take a look at the list below:
-                   </div>
-                </ion-row> 
+            <ion-row>
+              <div id="company-list-title">
+                <span id="secondary-color">Your search did not match any company</span><br>
+                Displaying <span id="strong"> all </span> companies
+              </div>
+      
+            </ion-row>
               <ion-row *ngFor="let cpy of allCompanies">
                 <app-company-card [company]="cpy" [filters]="filters" (tagClicked)="onTagChosen($event)" ></app-company-card>
               </ion-row>

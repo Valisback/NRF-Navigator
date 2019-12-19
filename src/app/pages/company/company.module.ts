@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { CompanyCardModule } from '../../shared/components/company-card/company-card.module';
 import { TopComponentsModule } from 'src/app/shared/components/generic/header/top-components.module';
 import { SlideshowModule } from 'ng-simple-slideshow';
+import { ModalPage } from './modal/modal.page';
 
 import { CompanyPageRoutingModule } from './company-routing.module';
 
@@ -29,6 +30,8 @@ import { TagsModule } from 'src/app/shared/components/tags/tags.module';
     CompanyPageRoutingModule,
     CompanyCardModule
   ],
-  declarations: [CompanyPage, ExpandableComponent, AccordionPanelComponent]
+  declarations: [CompanyPage,
+    ModalPage, ExpandableComponent, AccordionPanelComponent],
+  entryComponents: [ModalPage],
 })
 export class CompanyPageModule {}

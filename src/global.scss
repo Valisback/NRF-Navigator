@@ -44,3 +44,16 @@ ion-grid {
     --ion-grid-padding: 0px;
     padding: 0px!important;
 }
+
+.img-modal-css .modal-wrapper {
+    height: 80%;
+    width: 80%;
+    top: 10%;
+    left: 10%;
+    position: absolute; 
+    display: block;  
+ }
+
+ ion-backdrop{
+     background: rgba($color: #ffffff, $alpha: .5);
+ }

@@ -153,10 +153,7 @@ app-company-card{
     font-family: 'Open Sans';
 }
 
-#noCompanyWarning{
-    width: 100%;
-    text-align: center;
-    padding: 15px;
-    color: var(--ion-color-danger);
-    font-size: 1.125em; 
+#company-list-title #secondary-color{
+    color: var(--ion-color-secondary);
+    font-family: 'Open Sans';
 }

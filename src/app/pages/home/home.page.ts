@@ -56,9 +56,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     });
     this.storageService.filteredCompanies.subscribe((filteredCpies) => {
       this.filteredCompanies = filteredCpies;
-      if (this.filteredCompanies.length === 0) {
-        this.filteredCompanies = this.allCompanies;
-      }
     });
     this.storageService.filters.subscribe((filt) => {
       this.filters = filt;
@@ -92,7 +89,12 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     this.filters = this.filters.sort((a, b) => {
       return (a.name > b.name ) ? 1 : -1;
     });
+    let filtersEmpty = true;
     for (const filter of this.filters) {
+      if ( filter.active === 'TRUE') {
+        console.log(filter);
+        filtersEmpty = false;
+      }
       if (!(filter.type in this.activeCategories)) {
         this.activeCategories[filter.type] = false;
       }
@@ -101,6 +103,10 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       } else {
         this.topicFilters.push(filter);
       }
+    }
+
+    if (filtersEmpty) {
+      this.filteredCompanies = this.allCompanies;
     }
   }
 

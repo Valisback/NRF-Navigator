@@ -32,7 +32,7 @@ constructor(private storage: Storage,
 public loadData(): void {
   this.storage.get('allCompanies').then( (value) => {
 
-    if (value !== null && value.length > 0) {
+    if (value !== null) {
       this.allCompanies.next(value);
     } else {
       this.dbCompanyService.getCompanies().subscribe(companies => {
@@ -45,7 +45,7 @@ public loadData(): void {
 
   this.storage.get('filteredCompanies').then( (value) => {
 
-    if (value !== null && value.length > 0 ) {
+    if (value !== null) {
 
       this.filteredCompanies.next(value);
     } else {

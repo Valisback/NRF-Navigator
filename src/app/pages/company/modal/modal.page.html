@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar mode="md">
+    <ion-title>Booth #{{booth}} - Floor #{{floor}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="close-circle" color="tertiary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <div class = "imgWrapper">
+    <img class="mapImg" [ngClass] = "'floor'+floor" *ngIf="image" [src]="image">
+  </div>
+</ion-content>

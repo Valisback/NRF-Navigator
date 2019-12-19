@@ -32,7 +32,7 @@
         <app-accordion-panel [title]="'Location'" [expandable]="locationExpanded" (click)="expandItem('locationExpanded')">
           </app-accordion-panel>
       <app-expandable expandHeight="1200px" [expanded]="locationExpanded">
-        <img *ngIf="mapImage" [src]="mapImage">
+        <a (click)="presentModal(mapImage)"><img *ngIf="mapImage" [src]="mapImage"></a>
       </app-expandable>
     </ion-row>
     <ion-row>

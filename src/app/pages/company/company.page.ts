@@ -9,6 +9,8 @@ import { Storage } from '@ionic/storage';
 import { ScrollDetail } from '@ionic/core';
 import { StorageService } from 'src/app/shared/services/storage/storage.service';
 import { Filter } from '../home/models/filter';
+import { ModalController } from '@ionic/angular';
+import { ModalPage } from './modal/modal.page';
 
 
 @Component({
@@ -53,6 +55,7 @@ export class CompanyPage implements OnInit {
                private route: ActivatedRoute,
                private domSanitizer: DomSanitizer,
                private storageService: StorageService,
+               public modalController: ModalController
   ) {
   }
 
@@ -163,6 +166,9 @@ retrieveTags() {
   }
 
   retrieveMapImage( company: Company) {
+    if (company.map_image) {
+      this.mapImage = company.map_image;
+    } else {
     if (company.floor === 1) {
       this.mapImage = 'assets/maps/Floor1.png';
     } else if (company.floor === 3) {
@@ -171,14 +177,13 @@ retrieveTags() {
       this.mapImage = 'assets/maps/Floor4.png';
     }
   }
+  }
 
   retrieveRelatedCpies( company: Company ) {
     const floor = company.floor;
     const name = company.company;
     const tag = company.tag.split(', ');
-    this.relatedCompanies = [];
     this.dbCpyService.getRelatedTagCompanies(tag).subscribe( relatedCpies => {
-
       // Treatment for removing the actual company from the Related companies
       // Note: this treatment is necessary since firebase doesn't provide a mechanism of unequality in its queries
       for ( const item of relatedCpies) {
@@ -187,7 +192,7 @@ retrieveTags() {
           relatedCpies.splice(index, 1);
         }
       }
-      this.relatedCompanies =  this.relatedCompanies.concat(relatedCpies);
+      this.relatedCompanies =  relatedCpies;
 
     });
 
@@ -238,6 +243,20 @@ retrieveTags() {
     this.storageService.updateNotes(this.notesCpies);
   }
 
-
+  async presentModal(image: string) {
+    const modal = await this.modalController.create({
+      component: ModalPage,
+      showBackdrop: true,
+      backdropDismiss: true,
+      cssClass: 'img-modal-css',
+      componentProps: {
+        image: image,
+        floor: this.company.floor,
+        booth: this.company.booth,
+        modalController: this.modalController
+      }
+    });
+    return await modal.present();
+  }
 
 }

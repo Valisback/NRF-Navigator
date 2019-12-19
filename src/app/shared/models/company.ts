@@ -16,6 +16,7 @@ export class Company {
     mail: string;
     website: string;
     description: string;
+    map_image: string;
     techno_image1: string;
     techno_image2: string;
     techno_image3: string;
