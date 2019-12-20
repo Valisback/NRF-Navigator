@@ -16,7 +16,7 @@
 
 </div>
 
-<div *ngIf="filters.length>0 && allCompanies && filteredCompanies; else noCompanies">
+<div *ngIf="filters && allCompanies && filteredCompanies; else noCompanies">
     <ion-fab  [ngClass] ="fabButton && !fabButton_Active ? 'fabButton-active '+fabButton_Active : 'fabButton'" vertical="bottom" horizontal="start" style="position: fixed; bottom: 16px; left: 16px;" >
         <ion-fab-button color="secondary" [activated]="fabButton_Active" >
           <ion-icon style="font-size: 20px;" name="options" color="tertiary"></ion-icon>
@@ -79,6 +79,7 @@
           </ng-template>
 
         </ion-grid>
+        <app-footer></app-footer>
 </div>
 
 <ng-template #noCompanies>
@@ -87,6 +88,6 @@
   </div>
 </ng-template>
 
-  <app-footer></app-footer>
+ 
 
 </ion-content>

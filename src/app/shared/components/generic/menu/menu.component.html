@@ -6,12 +6,12 @@
   </ion-header>
   <ion-content>
     <ion-list class="menuItems" lines="none">
-          <ion-item href="/home" detail="false" routerDirection="forward">
+          <ion-item (click)="openPage(1)" detail="false">
             <div id="itemName">
               <ion-label>Home</ion-label>
             </div>
           </ion-item>
-          <ion-item href="/favourites" detail="false" routerDirection="forward">
+          <ion-item (click)="openPage(2)"   detail="false">
             <div id="itemName">
               <ion-label>Favorites</ion-label>
             </div>
@@ -27,7 +27,7 @@
         <ion-label>About the AIE</ion-label>
       </div>
     </ion-item>
-      <ion-item id="last-item"  type="button" href = '/contact' detail="false" routerDirection="forward">
+      <ion-item id="last-item" (click)="openPage(3)"  type="button" detail="false" >
         <div id="itemName">
           <ion-label>Contact us</ion-label>
         </div>

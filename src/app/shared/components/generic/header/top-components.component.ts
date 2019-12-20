@@ -18,6 +18,6 @@ export class TopComponentsComponent implements OnInit {
   ngOnInit() {}
 
   goBack() {
-    this.navCtrl.back();
+    this.navCtrl.back()
   }
 }

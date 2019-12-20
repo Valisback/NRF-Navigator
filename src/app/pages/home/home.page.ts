@@ -92,7 +92,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     let filtersEmpty = true;
     for (const filter of this.filters) {
       if ( filter.active === 'TRUE') {
-        console.log(filter);
         filtersEmpty = false;
       }
       if (!(filter.type in this.activeCategories)) {

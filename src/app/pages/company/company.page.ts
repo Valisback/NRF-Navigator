@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { NavController, IonContent } from '@ionic/angular';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { Storage } from '@ionic/storage';
+import { LoadingController } from '@ionic/angular';
+
 import { ScrollDetail } from '@ionic/core';
 import { StorageService } from 'src/app/shared/services/storage/storage.service';
 import { Filter } from '../home/models/filter';
@@ -30,7 +32,7 @@ export class CompanyPage implements OnInit {
 
   public company: Company;
   public relatedCompanies: Company[] = [];
-  public cpyImage;
+  public cpyImage: any;
   carouselHeight = '100px';
   images: string[];
   mapImage: string;
@@ -41,18 +43,19 @@ export class CompanyPage implements OnInit {
   contactExpanded = false;
   noteExpanded = false;
   newsroomExpanded = false;
-
+  loading: any;
   showToolbar = false;
 
 
-  public currentId;
-  public currentName;
+  public currentId: any;
+  public currentName: any;
   public items: any = [];
   public companyLiked = false;
 
 
   constructor( private dbCpyService: DbCompanyService,
                private route: ActivatedRoute,
+               private loadingController: LoadingController,
                private domSanitizer: DomSanitizer,
                private storageService: StorageService,
                public modalController: ModalController
@@ -64,24 +67,34 @@ export class CompanyPage implements OnInit {
     return this.domSanitizer.bypassSecurityTrustUrl(this.company.logo);
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.loadContent();
     this.carouselHeight = 464 + 'px';
     this.storageService.loadStoredLikesAndNotes();
-    this.storageService.likedCpies.subscribe((likedCpies) => {
-      this.likedCpies = likedCpies;
-    });
-    this.storageService.notesCpies.subscribe((notesCpies) => {
-      this.notesCpies = notesCpies;
-    });
-    this.route.queryParams.subscribe(params => {
-      if (params.id !== undefined) {
-        this.currentId = params.id;
-        this.retrieveCompany(this.currentId);
-      }
-    });
-    this.storageService.filters.subscribe((filt) => {
-      this.filters = filt;
-    });
+
+}
+
+async loadContent() {
+  this.loading = await this.loadingController.create({ spinner: 'bubbles', cssClass: 'loading-spinner'});
+
+  this.loading.present();
+
+  this.storageService.likedCpies.subscribe((likedCpies) => {
+    this.likedCpies = likedCpies;
+  });
+  this.storageService.notesCpies.subscribe((notesCpies) => {
+    this.notesCpies = notesCpies;
+  });
+  this.route.queryParams.subscribe(params => {
+    if (params.id !== undefined) {
+      this.currentId = params.id;
+      this.retrieveCompany(this.currentId);
+      //this.loading.dismiss();
+    }
+  });
+  this.storageService.filters.subscribe((filt) => {
+    this.filters = filt;
+  });
 }
 
 retrieveTags() {
@@ -144,6 +157,7 @@ retrieveTags() {
     this.noteExpanded = false;
     this.newsroomExpanded = false;
     this.showToolbar = false;
+    this.loading.dismiss();
   }
 
   retrieveTechnoImages( company: Company ) {

@@ -1,16 +1,35 @@
-<ion-content>
-    <app-top-components fixed = 'false' showToolbar = 'true'></app-top-components>
+<ion-content [scrollEvents]="true" no-bounce fullscreen (ionScroll)="onScroll($event)">
+    <app-top-components [(showToolbar)] = "showToolbar"></app-top-components>
 
-    <ion-grid *ngIf="favouriteCompanies && filters.length>0">
-        <ion-row>
-         <div id="favouriteCpiesTitle">
-          Favorite Companies:
-         </div>
-       </ion-row> 
-       <ion-row *ngFor="let cpy of favouriteCompanies">
-         <app-company-card [company]="cpy" [filters]="filters"></app-company-card>
-       </ion-row>
+    <div #background class="background">
+  
+      <div #vector class="background-vect"></div>
+          <div class="shader-top">
+        </div>
+        <div class="shader-bottom">
+        </div>
+      <div class="app-title">
+        <div id="app-title-h1"> Favorites </div>
+      </div>
+    
+    </div>
+
+    <ion-grid *ngIf="favouriteCompanies">
+      <ion-row  *ngIf="favouriteCompanies.length>0 && filters.length>0; else nofavourite">
+        <div id="company-list-title">
+          Listing your favorite companies
+        </div>
+        </ion-row>
+          <ion-row *ngFor="let cpy of favouriteCompanies">
+            <app-company-card [company]="cpy" [filters]="filters"></app-company-card>
+          </ion-row>
+       <ng-template #nofavourite>
+         <div id="company-list-title">
+          <span id="secondary-color">You do not have any favorites yet</span><br>
+          </div>
+       </ng-template>
      </ion-grid>
+     
 
      <app-footer></app-footer>
 </ion-content>

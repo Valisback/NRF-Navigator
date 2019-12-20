@@ -54,6 +54,12 @@ ion-grid {
     display: block;  
  }
 
- ion-backdrop{
+ .loading-spinner{
+     --background: transparent;
+    --spinner-color: var(--ion-color-secondary);
+ }
+
+ .img-modal-css ion-backdrop{
      background: rgba($color: #ffffff, $alpha: .5);
  }
+

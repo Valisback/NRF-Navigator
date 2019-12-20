@@ -30,8 +30,9 @@ exports.sendContactMessage = functions.database.ref('/messages/{pushKey}').onWri
 
     
     const mailOptions = {
-      to: 'aie.newyork.nar@capgemini.com ',
-      subject: ` [NRF2020][App] New Message from ${val.name} - ${val.organization}`,
+      to: 'aie.newyork.nar@capgemini.com',
+      //to: 'valentin.pereira@capgemini.com',
+      subject: `[NRF2020][App] New Message from ${val.name} - ${val.organization}`,
       html: val.html
     };
     return mailTransport.sendMail(mailOptions).then(() => {

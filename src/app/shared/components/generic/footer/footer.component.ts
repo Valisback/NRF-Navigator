@@ -14,5 +14,9 @@ export class FooterComponent implements OnInit {
 
   ngOnInit() {}
 
+  goToContact() {
+    this.navCtrl.navigateForward('contact');
+  }
+
 
 }

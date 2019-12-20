@@ -23,9 +23,9 @@
       <app-accordion-panel [title]="'Why ' + company.company +'?'" [expandable]="whyExpanded" (click)="expandItem('whyExpanded')">
       </app-accordion-panel>
       <app-expandable expandHeight="200px" [expanded]="whyExpanded">
-        <p id = "textWhy">
+        <div id = "content-text">
           {{ company.why}}
-        </p>
+        </div>
       </app-expandable>
     </ion-row>
     <ion-row>
@@ -39,24 +39,19 @@
       <app-accordion-panel [title]="'Newsroom'" [expandable]="newsroomExpanded" (click)="expandItem('newsroomExpanded')">
         </app-accordion-panel>
     <app-expandable expandHeight="200px" [expanded]="newsroomExpanded">
-      <a style="color: white" [href]="company.news_link">{{company.news_title}}</a> 
+      <div id = "content-text">
+        <a id = "content-text-news" [href]="company.news_link"> {{company.news_title}}</a> <br>
+        <a [href]="company.news_link"> <div id = "content-text-more"> Read the article </div> </a>
+      </div>
     </app-expandable>
   </ion-row>
     <ion-row >
         <app-accordion-panel [title]="'Contact'" [expandable]="contactExpanded" (click)="expandItem('contactExpanded')">
           </app-accordion-panel>
       <app-expandable expandHeight="200px" [expanded]="contactExpanded">
-        <div class = "expandContact">
-        <div id = "mail">
-          <p>
-              <ion-icon name = "pin" color="secondary"></ion-icon>{{ company.headquarters}}
-          </p>
-        </div>
-        <div id = "website">
-          <p>
-              <ion-icon name = "globe" color="secondary"></ion-icon> {{ company.website}}
-          </p>
-        </div>
+        <div id = "content-text">
+          Headquarters:   {{ company.headquarters}} <br>
+          Website:   <a id = "content-text-website" [href]="company.news_link">{{ company.website}}</a>
       </div>
       </app-expandable>
     </ion-row>
@@ -65,7 +60,7 @@
           </app-accordion-panel>
       <app-expandable  expandHeight="200px" style="width: 100%;" [expanded]="noteExpanded">
         <div class = "expandNotes">
-            <ion-textarea rows="6" (ngModelChange)="onTextAreaFilled()" [(ngModel)]="notesCpies[currentId]" placeholder="Enter your notes here..."></ion-textarea>
+            <ion-textarea id = "content-text" auto-grow = "true" (ngModelChange)="onTextAreaFilled()" [(ngModel)]="notesCpies[currentId]" placeholder="Enter your notes here..."></ion-textarea>
         </div>
       </app-expandable>
     </ion-row>

@@ -39,7 +39,6 @@ export class ContactPage implements OnInit {
       lastname: new FormControl('', [Validators.required]),
       jobtitle: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]),
-      phone: new FormControl('', [Validators.required, Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')]),
       organization: new FormControl('', [Validators.required]),
       message: new FormControl('', [Validators.required]),
 
@@ -51,7 +50,6 @@ export class ContactPage implements OnInit {
     const name = data.firstname + ' ' + data.lastname;
     const jobtitle = data.jobtitle;
     const email = data.email;
-    const phone = data.phone;
     const organization = data.organization;
     const message = data.message;
     const date = new Date();
@@ -64,15 +62,14 @@ export class ContactPage implements OnInit {
     <div> From: ${name} </div>
     <div> Job Title: ${jobtitle} at ${organization} </div>
     <div> Email: <a href = "mailto: ${email}">${email}</a></div>
-    <div> Phone: ${phone} </div>
     <div> Date: ${date} </div>
     <div> Message: ${message} </div>
      `;
 
     let formRequest = { name, email, organization, message, date, html };
     this.db.list('/messages').push(formRequest);
-    this.infoFormGroup.reset();
     this.navCtrl.back();
+    this.infoFormGroup.reset();
     this.presentToast();
 
   }
@@ -87,6 +84,7 @@ export class ContactPage implements OnInit {
       duration: 2000
     });
     toast.present();
+
   }
 
 

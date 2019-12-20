@@ -1,5 +1,5 @@
 <div class="cardWrapper">
-  <ion-card class="companyCard" (click)="onClickedCard()">
+  <ion-card *ngIf="company" class="companyCard" (click)="onClickedCard()">
     <div *ngIf="!detailed" id="card-top-imageWrapper">
       <img
         *ngIf="company.techno_image1; else notechnoimg"
@@ -17,10 +17,8 @@
               id="companyLogo"
               src="{{ company.logo }}"
             />
-            <ion-icon *ngIf="!likedCpies[company.company]; else favourite" (click)="onLikeClicked($event)" id= "favouriteIcon" name="star-outline"></ion-icon>
-            <ng-template #favourite>
-                <ion-icon id= "favouriteIcon" name="star" (click)="onLikeClicked($event)" color="secondary"></ion-icon>
-            </ng-template>
+            <ion-icon id="favouriteIcon" [ngClass]="!likedCpies[company.company]? 'active' : 'unactive'" (click)="onLikeClicked($event)"  name="star-outline">a</ion-icon>
+            <ion-icon id="favouriteIcon" [ngClass]="!likedCpies[company.company]? 'unactive' : 'active'"  name="star" (click)="onLikeClicked($event)" color="secondary">a</ion-icon>
           </div>
       <ion-card-title id="card-header-title">
         {{ company.company }}
@@ -31,7 +29,9 @@
     </ion-card-header>
     <ion-card-content [ngClass] = "detailed? 'card-content-detailed': 'card-content'">
       <div id="card-content-description">
-        {{ company.description }}
+        {{company.description}}
+        <!-- {{ (company.description.length > 80)? (company.description | slice:0:80) +'...':(company.description) }} -->
+
       </div>
       <ion-grid style="width: 100%; max-width: 100%;">
           <ion-row>

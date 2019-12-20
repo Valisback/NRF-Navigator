@@ -6,9 +6,35 @@ ion-content{
     --ion-background-color:#2B2B2B;
 }
 
-.contact-card{
-    background-color: white;
+ion-col{
+  padding: 0px;
 }
+
+ion-card{
+  border-radius: 4px!important;
+}
+
+.contact-card{
+    background-color: var(--ion-color-primary-contrast);
+    -webkit-margin-start: 16px;
+    margin-inline-start: 16px;
+    -webkit-margin-end: 16px;
+    margin-inline-end: 16px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+
+#contact-page-title{
+  width: 100%;
+  padding: 32px 16px 16px 16px;
+  font-family: 'Open Sans';
+  text-transform: uppercase;
+  font-size: 11px;
+  text-align: left;
+  color: var(--ion-color-primary-contrast);
+}
+
 
   
   ion-input > placeholder {
@@ -36,12 +62,16 @@ ion-content{
 
   .input-container ion-label{
     font-weight: bolder;
-    font-size: 0.8em;
+    font-size: 11px;
   }
  
-  .input-container input{
-    font-size: 1.2em;
+  .input-container ion-input, .input-container ion-textarea{
+    font-family: 'Open Sans';
+    font-size: 11px;
+    --padding-start: 8px;
+
   }
+
 
   input:focus, textarea:focus {
     border: 1px var(--ion-color-primary) solid !important;
@@ -68,4 +98,11 @@ ion-content{
   
   .button-group {
     text-align: right;
+  }
+
+  .button-group > ion-button{
+    --border-radius: 0px;
+    font-family: 'Open Sans';
+    text-transform: uppercase;
+    font-size: 11px;
   }

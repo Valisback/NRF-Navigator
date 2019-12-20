@@ -61,6 +61,46 @@ ion-content{
     width:100%
 }
 
+.expandableDetails #content-text, .expandableDetails #content-text-more{
+    padding-top: 5px;
+    padding-bottom: 15px;
+    font-family: 'Libre Baskerville';
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 1.54;
+    letter-spacing: -0.42px;
+    color: var(--ion-color-primary-contrast);
+}
+
+#content-text-news{
+    font-family: 'Libre Baskerville';
+    font-size: 13px;
+    font-style: italic;
+    text-decoration: none;
+    font-weight: normal;
+    color: var(--ion-color-primary-contrast);
+    line-height: 1.54;
+    letter-spacing: -0.42px;
+}
+
+.expandableDetails #content-text-more{
+    padding: 0;
+    font-size: 11px;
+    text-emphasis: none;
+    text-align: right;
+    color: var(--ion-color-secondary);
+
+}
+
+.expandableDetails #content-text-website{
+    padding: 0;
+    font-size: 13px;
+    text-emphasis: none;
+    text-decoration: none;
+    color: var(--ion-color-secondary);
+
+}
+
 .expandableDetails .expandContact #mail, .expandableDetails .expandContact #website{
     vertical-align: middle;
     align-content: center;
@@ -68,6 +108,7 @@ ion-content{
 
 .expandableDetails .expandNotes ion-textarea{
     --padding-start: 0;
+    --padding-top: 0;
 }
 
 #related-company-list-title{

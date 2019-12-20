@@ -21,7 +21,7 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private storageService: StorageService,
-    
+    public navCtrl: NavController,
   ) {
    }
 
@@ -64,7 +64,16 @@ export class MenuComponent implements OnInit {
   }
 
   closingNavSlideUp() {
-    console.log('I am fired');
     this.content.scrollToTop();
+  }
+
+  openPage(id: number) {
+    if (id === 1) {
+      this.navCtrl.navigateForward('home');
+    } else if (id === 2) {
+      this.navCtrl.navigateForward('favourites');
+    } else if (id === 3) {
+      this.navCtrl.navigateForward('contact');
+    }
   }
 }
