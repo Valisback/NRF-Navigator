@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, IonContent } from '@ionic/angular';
+import { NavController, IonContent, MenuController } from '@ionic/angular';
 import { Company } from '../../../models/company';
 import { StorageService } from 'src/app/shared/services/storage/storage.service';
 import { Filter } from 'src/app/pages/home/models/filter';
@@ -22,10 +22,12 @@ export class MenuComponent implements OnInit {
   constructor(
     private storageService: StorageService,
     public navCtrl: NavController,
+    private menuCtrl: MenuController
   ) {
    }
 
   ngOnInit() {
+    this.disableSwipe();
     this.storageService.allCompanies.subscribe((cpies) => {
       this.allCompanies = cpies;
     });
@@ -76,4 +78,15 @@ export class MenuComponent implements OnInit {
       this.navCtrl.navigateForward('contact');
     }
   }
+
+  enableSwipe(): void {
+    this.menuCtrl.swipeGesture(true);
+    console.log('SWIPE ACTIVATED');
+  }
+
+  disableSwipe(): void {
+    this.menuCtrl.swipeGesture(false);
+    console.log('SWIPE DEACTIVATED');
+  }
+
 }

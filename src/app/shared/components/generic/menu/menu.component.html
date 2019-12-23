@@ -1,4 +1,4 @@
-<ion-menu side="end" [swipeGesture]="false" menuId="first" type="overlay" (ionWillClose)="closingNavSlideUp()" contentId="menu-content">
+<ion-menu side="end" (ionDidOpen)="enableSwipe()" (ionDidClose)="disableSwipe()" menuId="first" type="overlay" (ionWillClose)="closingNavSlideUp()" contentId="menu-content">
   <ion-header>
     <ion-toolbar color="primary">
       <ion-searchbar (ionInput) = "onSearch($event)" color="primary" placeholder = "Search"></ion-searchbar> 
