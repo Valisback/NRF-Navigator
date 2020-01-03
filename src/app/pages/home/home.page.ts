@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, HostListener, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { MenuController, NavController } from '@ionic/angular';
+import { MenuController, NavController, IonContent } from '@ionic/angular';
 import { DbCompanyService } from 'src/app/shared/services/company/db-company.service';
 import { Company } from 'src/app/shared/models/company';
 import { Filter } from './models/filter';
@@ -16,6 +16,7 @@ import RINGS from 'src/vanta.rings.min.js';
 })
 export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('vector', {static: false}) background: ElementRef;
+  @ViewChild(IonContent, {static: false}) content: IonContent;
 
 
   retail = false;
@@ -33,6 +34,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   showToolbar = false;
   fabButton = false;
 
+  dataProcessed = false;
 
   constructor(
 
@@ -56,6 +58,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     });
     this.storageService.filteredCompanies.subscribe((filteredCpies) => {
       this.filteredCompanies = filteredCpies;
+      this.dataProcessed = true;
     });
     this.storageService.filters.subscribe((filt) => {
       this.filters = filt;
@@ -72,6 +75,10 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
+  ionViewDidEnter() {
+    this.content.scrollToTop(400);
+  }
+  
   ngOnDestroy() {
     if (this.filters.length > 0 && this.allCompanies.length > 0) {
       this.storageService.updateData(this.filters, this.allCompanies, this.filteredCompanies);
@@ -115,6 +122,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
 
   onTagChosen(filter: Filter, event ?: any) {
+    this.dataProcessed = false;
     if (event) {
       event.cancelBubble = true;
       if (event.stopPropagation) {
@@ -192,6 +200,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       }
       return (a.nbActivateTags > b.nbActivateTags ) ? -1 : 1;
     });
+    this.dataProcessed = true;
   }
 
 

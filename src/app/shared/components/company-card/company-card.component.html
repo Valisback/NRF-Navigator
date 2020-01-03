@@ -1,5 +1,5 @@
-<div class="cardWrapper">
-  <ion-card *ngIf="company" class="companyCard" (click)="onClickedCard()">
+<div *ngIf="dataLoaded" class="cardWrapper">
+  <ion-card class="companyCard" (click)="onClickedCard()">
     <div *ngIf="!detailed" id="card-top-imageWrapper">
       <img
         *ngIf="company.techno_image1; else notechnoimg"
@@ -39,7 +39,7 @@
                   Related to
                 </div>
           </ion-row>
-          <ion-row *ngIf="companyTags" id="card-content-tags">
+          <ion-row id="card-content-tags">
               <div *ngFor="let tag of companyTags">
                   <app-tags [filter] = "tag" (click)="onTagClicked($event, tag)"> </app-tags>
               </div>

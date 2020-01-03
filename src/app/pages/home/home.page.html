@@ -52,18 +52,22 @@
       
       </ion-grid>
       
-      <ion-grid class="grid-company-list">
+      <!--<ion-grid class="grid-company-list"> -->
 
-          <div *ngIf="filteredCompanies.length !== 0; else noFilteredCpy">
+          <div *ngIf="dataProcessed; else noCompanies">
             <ion-row>
               <div id="company-list-title">
                 Viewing <span id="strong"> all </span> curated companies
               </div>
       
-            </ion-row>
-              <ion-row *ngFor="let cpy of filteredCompanies">
+           </ion-row>
+           <div *ngIf="filteredCompanies.length !== 0; else noFilteredCpy">
+              <div *ngFor = "let cpy of filteredCompanies">
+                <ion-row>
                   <app-company-card [company]="cpy" [filters]="filters" (tagClicked)="onTagChosen($event)"></app-company-card>
                 </ion-row>
+              </div>
+            </div>
           </div>
           <ng-template #noFilteredCpy>
             <ion-row>
@@ -73,12 +77,13 @@
               </div>
       
             </ion-row>
-              <ion-row *ngFor="let cpy of allCompanies">
-                <app-company-card [company]="cpy" [filters]="filters" (tagClicked)="onTagChosen($event)" ></app-company-card>
-              </ion-row>
+              <div *ngFor="let cpy of allCompanies">
+                <ion-row >
+                  <app-company-card [company]="cpy" [filters]="filters" (tagClicked)="onTagChosen($event)" ></app-company-card>
+                </ion-row>
+              </div > 
           </ng-template>
-
-        </ion-grid>
+        <!-- </ion-grid> -->
         <app-footer></app-footer>
 </div>
 

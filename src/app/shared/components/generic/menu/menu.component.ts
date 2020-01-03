@@ -38,13 +38,13 @@ export class MenuComponent implements OnInit {
 
   onSearch(ev: any) {
     this.searchValue = ev.target.value;
-    if (this.searchValue === undefined ) {
+    this.searchedCompanies = [];
+    if (this.searchValue === undefined || this.searchValue === '' ) {
       return;
     }
     let valueSearched = this.searchValue.replace(/\s+/g, '');
     valueSearched = valueSearched.toLowerCase();
 
-    this.searchedCompanies = [];
 
     if (valueSearched === 'all' || valueSearched === '*' ) {
       this.searchedCompanies = this.allCompanies;
@@ -72,21 +72,22 @@ export class MenuComponent implements OnInit {
   openPage(id: number) {
     if (id === 1) {
       this.navCtrl.navigateForward('home');
+      this.menuCtrl.close();
     } else if (id === 2) {
       this.navCtrl.navigateForward('favourites');
+      this.menuCtrl.close();
     } else if (id === 3) {
       this.navCtrl.navigateForward('contact');
+      this.menuCtrl.close();
     }
   }
 
   enableSwipe(): void {
     this.menuCtrl.swipeGesture(true);
-    console.log('SWIPE ACTIVATED');
   }
 
   disableSwipe(): void {
     this.menuCtrl.swipeGesture(false);
-    console.log('SWIPE DEACTIVATED');
   }
 
 }

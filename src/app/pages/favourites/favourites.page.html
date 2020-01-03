@@ -14,21 +14,27 @@
     
     </div>
 
-    <ion-grid *ngIf="favouriteCompanies">
+  <!--  <ion-grid *ngIf="favouriteCompanies"> -->
+      <div *ngIf="favouriteCompanies">
       <ion-row  *ngIf="favouriteCompanies.length>0 && filters.length>0; else nofavourite">
         <div id="company-list-title">
           Listing your favorite companies
         </div>
         </ion-row>
-          <ion-row *ngFor="let cpy of favouriteCompanies">
-            <app-company-card [company]="cpy" [filters]="filters"></app-company-card>
-          </ion-row>
+          <div *ngFor = "let cpy of favouriteCompanies">
+            <ion-row>
+              <app-company-card [company]="cpy" [filters]="filters"></app-company-card>
+            </ion-row>
+          </div>
+
        <ng-template #nofavourite>
          <div id="company-list-title">
           <span id="secondary-color">You do not have any favorites yet</span><br>
           </div>
        </ng-template>
-     </ion-grid>
+</div>
+
+     <!-- </ion-grid> -->
      
 
      <app-footer></app-footer>

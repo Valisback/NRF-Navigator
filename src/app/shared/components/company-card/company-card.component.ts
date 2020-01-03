@@ -21,6 +21,7 @@ export class CompanyCardComponent implements OnInit {
   @Output() tagClicked = new EventEmitter<Filter>();
 
   likedCpies: { [id: string]: boolean } = {};
+  dataLoaded = false;
 
   companyTags: Filter[];
 
@@ -31,12 +32,13 @@ export class CompanyCardComponent implements OnInit {
     private storageService: StorageService,
 
   ) {
+    this.dataLoaded = false;
   }
 
   ngOnInit() {
-
+    this.dataLoaded = false;
     this.storageService.loadStoredLikes();
-    if (this.filters) {
+    if (this.filters && this.company) {
       this.companyTags = [];
       for (const filter of this.filters) {
         const filteredCategory = filter.type;
@@ -56,6 +58,7 @@ export class CompanyCardComponent implements OnInit {
           this.companyTags.push(tag);
         }
         }
+      this.dataLoaded = true;
       }
     this.storageService.likedCpies.subscribe((likedCpies) => {
         this.likedCpies = likedCpies;

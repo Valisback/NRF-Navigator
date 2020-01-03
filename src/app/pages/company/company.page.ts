@@ -1,18 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { IonContent, LoadingController, ModalController } from '@ionic/angular';
+import { ScrollDetail } from '@ionic/core';
 import { Company } from 'src/app/shared/models/company';
 import { DbCompanyService } from 'src/app/shared/services/company/db-company.service';
-import { ActivatedRoute } from '@angular/router';
-import { NavController, IonContent } from '@ionic/angular';
-import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
-import { Storage } from '@ionic/storage';
-import { LoadingController } from '@ionic/angular';
-
-import { ScrollDetail } from '@ionic/core';
 import { StorageService } from 'src/app/shared/services/storage/storage.service';
 import { Filter } from '../home/models/filter';
-import { ModalController } from '@ionic/angular';
 import { ModalPage } from './modal/modal.page';
+
+
 
 
 @Component({
@@ -60,6 +57,7 @@ export class CompanyPage implements OnInit {
                private storageService: StorageService,
                public modalController: ModalController
   ) {
+    this.company = null;
   }
 
 
@@ -79,22 +77,26 @@ async loadContent() {
 
   this.loading.present();
 
-  this.storageService.likedCpies.subscribe((likedCpies) => {
-    this.likedCpies = likedCpies;
-  });
-  this.storageService.notesCpies.subscribe((notesCpies) => {
-    this.notesCpies = notesCpies;
-  });
+
   this.route.queryParams.subscribe(params => {
     if (params.id !== undefined) {
+      this.storageService.likedCpies.subscribe((likedCpies) => {
+        this.likedCpies = likedCpies;
+      });
+      this.storageService.notesCpies.subscribe((notesCpies) => {
+        this.notesCpies = notesCpies;
+      });
+      this.storageService.filters.subscribe((filt) => {
+        this.filters = filt;
+      });  
+      this.company = null;
       this.currentId = params.id;
       this.retrieveCompany(this.currentId);
+
       //this.loading.dismiss();
     }
   });
-  this.storageService.filters.subscribe((filt) => {
-    this.filters = filt;
-  });
+
 }
 
 retrieveTags() {
@@ -183,33 +185,36 @@ retrieveTags() {
     if (company.map_image) {
       this.mapImage = company.map_image;
     } else {
-    if (company.floor === 1) {
-      this.mapImage = 'assets/maps/Floor1.png';
-    } else if (company.floor === 3) {
-      this.mapImage = 'assets/maps/Floor3.png';
-    } else {
-      this.mapImage = 'assets/maps/Floor4.png';
+      return;
     }
-  }
   }
 
   retrieveRelatedCpies( company: Company ) {
     const floor = company.floor;
-    const name = company.company;
     const tag = company.tag.split(', ');
     this.dbCpyService.getRelatedTagCompanies(tag).subscribe( relatedCpies => {
+      if (relatedCpies.length <= 1) {
+        this.dbCpyService.getRelatedFloorCompanies(floor).subscribe( relatedCpies => {
+          this.removeExistingCpyFromQuery(relatedCpies);
+          this.relatedCompanies =  relatedCpies;
+        });
+
+      } else {
+        this.removeExistingCpyFromQuery(relatedCpies);
+        this.relatedCompanies =  relatedCpies;
+      }
+    });
+  }
+
+  removeExistingCpyFromQuery(queryList) {
       // Treatment for removing the actual company from the Related companies
       // Note: this treatment is necessary since firebase doesn't provide a mechanism of unequality in its queries
-      for ( const item of relatedCpies) {
-        if (item.company === this.company.company) {
-          const index = relatedCpies.indexOf(item);
-          relatedCpies.splice(index, 1);
-        }
+    for ( const item of queryList) {
+      if (item.company === this.company.company) {
+        const index = queryList.indexOf(item);
+        queryList.splice(index, 1);
       }
-      this.relatedCompanies =  relatedCpies;
-
-    });
-
+    }
   }
 
   onScroll(event: CustomEvent<ScrollDetail>) {
@@ -221,7 +226,7 @@ retrieveTags() {
     }
   }
 
-  // Should be modified, not best practice 
+  // Should be modified, not best practice
   expandItem(item) {
     if ( item === 'whyExpanded') {
       this.whyExpanded = !this.whyExpanded;

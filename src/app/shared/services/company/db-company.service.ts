@@ -68,6 +68,7 @@ export class DbCompanyService {
       tag.push(alltag);
     }
 
+
     return this.afs.collection<Company>('Companies', ref => ref.where('tag', 'in', tag)).snapshotChanges().pipe(
       map(actions => {
         return actions.map( a => {
@@ -77,7 +78,18 @@ export class DbCompanyService {
         });
       })
     );
+  }
 
+  getRelatedFloorCompanies(floor: number): Observable<Company[]> {
+    return this.afs.collection<Company>('Companies', ref => ref.where('floor', '==', floor)).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map( a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data};
+        });
+      })
+    );
   }
 
   getCompany(id: string): Observable<Company> {

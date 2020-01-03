@@ -21,6 +21,5 @@ export class Company {
     techno_image2: string;
     techno_image3: string;
     nbActivateTags =  0;
-
 }
 

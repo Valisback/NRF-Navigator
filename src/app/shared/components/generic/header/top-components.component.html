@@ -10,8 +10,14 @@
 
     </ion-buttons>
     <div style="padding-left: 5px; padding-top: 8px;">
+      <div *ngIf = "showToolbar; else noToolbar">
       <img src="assets/homepage/Capgemini_AIE.png"
           class="Invent_Logo_WHITE_CMYK">
+        </div>
+      <ng-template #noToolbar>
+        <img src="assets/homepage/Capgemini_AIE2.png"
+        class="Invent_Logo_WHITE_CMYK">        
+      </ng-template>
     </div>
 
     <ion-buttons slot="end">

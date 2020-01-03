@@ -7,6 +7,7 @@ import { ScrollDetail } from '@ionic/core';
 
 import * as THREE from 'src/three.min.js';
 import NET from 'src/vanta.net.min.js';
+import { IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'app-favourites',
@@ -15,6 +16,8 @@ import NET from 'src/vanta.net.min.js';
 })
 export class FavouritesPage implements OnInit, AfterViewInit {
   @ViewChild('vector', {static: false}) background: ElementRef;
+  @ViewChild(IonContent, {static: false}) content: IonContent;
+
 
   favouriteCompanies: Company[];
   filters: Filter[];
@@ -34,6 +37,10 @@ export class FavouritesPage implements OnInit, AfterViewInit {
     this.storageService.filters.subscribe((filt) => {
       this.filters = filt;
     });
+  }
+
+  ionViewDidEnter() {
+    this.content.scrollToTop(400);
   }
 
   ngAfterViewInit() {

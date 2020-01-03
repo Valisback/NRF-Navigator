@@ -51,7 +51,7 @@
       <app-expandable expandHeight="200px" [expanded]="contactExpanded">
         <div id = "content-text">
           Headquarters:   {{ company.headquarters}} <br>
-          Website:   <a id = "content-text-website" [href]="company.news_link">{{ company.website}}</a>
+          Website:   <a id = "content-text-website" [href]="company.website">{{ company.website}}</a>
       </div>
       </app-expandable>
     </ion-row>
@@ -60,23 +60,27 @@
           </app-accordion-panel>
       <app-expandable  expandHeight="200px" style="width: 100%;" [expanded]="noteExpanded">
         <div class = "expandNotes">
-            <ion-textarea id = "content-text" auto-grow = "true" (ngModelChange)="onTextAreaFilled()" [(ngModel)]="notesCpies[currentId]" placeholder="Enter your notes here..."></ion-textarea>
+            <ion-textarea id = "content-text" row = "6" (ngModelChange)="onTextAreaFilled()" [(ngModel)]="notesCpies[currentId]" placeholder="Enter your notes here..."></ion-textarea>
         </div>
       </app-expandable>
     </ion-row>
   </div>
   </ion-grid>
 
-   <ion-grid *ngIf="(relatedCompanies && relatedCompanies.length > 0 ); else norelatedcpy">
+   <!-- <ion-grid > -->
+  <div *ngIf="(relatedCompanies && relatedCompanies.length > 0 ); else norelatedcpy">
      <ion-row>
         <div id="related-company-list-title">
             All Related companies
           </div>
-    </ion-row> 
-    <ion-row *ngFor="let rltCpy of relatedCompanies">
-      <app-company-card *ngIf = "filters" [company]="rltCpy" [filters]="filters"> </app-company-card>
     </ion-row>
-  </ion-grid>
+      <div *ngFor = "let rltCpy of relatedCompanies">
+        <ion-row>
+          <app-company-card *ngIf = "filters" [company]="rltCpy" [filters]="filters"> </app-company-card>
+        </ion-row>
+      </div>
+  </div>
+  <!-- </ion-grid> -->
 
   <ng-template #norelatedcpy>
       <ion-grid>

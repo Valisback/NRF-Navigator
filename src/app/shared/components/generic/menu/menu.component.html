@@ -6,28 +6,33 @@
   </ion-header>
   <ion-content>
     <ion-list class="menuItems" lines="none">
-          <ion-item (click)="openPage(1)" detail="false">
+          <ion-item button (click)="openPage(1)" detail="false">
             <div id="itemName">
               <ion-label>Home</ion-label>
             </div>
           </ion-item>
-          <ion-item (click)="openPage(2)"   detail="false">
+          <ion-item button (click)="openPage(2)"   detail="false">
             <div id="itemName">
               <ion-label>Favorites</ion-label>
             </div>
           </ion-item>
-      <ion-item href="https://www.capgemini.com/us-en/our-company/"  detail="false" routerDirection="forward">
+      <ion-item button href="https://www.capgemini.com/us-en/our-company/"  detail="false" routerDirection="forward">
         <div id="itemName">
           <ion-label>About Capgemini</ion-label>
         </div>
       </ion-item>
-      <ion-item href="https://www.capgemini.com/service/applied-innovation-exchange/" detail="false" routerDirection="forward">
+      <ion-item button href="https://www.capgemini.com/service/applied-innovation-exchange/" detail="false" routerDirection="forward">
         <div id="itemName">
 
         <ion-label>About the AIE</ion-label>
       </div>
-    </ion-item>
-      <ion-item id="last-item" (click)="openPage(3)"  type="button" detail="false" >
+    </ion-item >
+    <ion-item button href="https://www.fahrenheit-212.com" detail="false" routerDirection="forward">
+      <div id="itemName">
+      <ion-label>About Fahrenheit 212<br>Part of Capgemini Invent</ion-label>
+    </div>
+  </ion-item>
+      <ion-item button id="last-item" (click)="openPage(3)"  detail="false" >
         <div id="itemName">
           <ion-label>Contact us</ion-label>
         </div>
@@ -35,11 +40,13 @@
       </ion-item>
     </ion-list>
 
-    <ion-grid>
-      <ion-row *ngFor="let company of searchedCompanies">
-        <app-company-card [company]="company" [filters] = "filters"> </app-company-card>
-      </ion-row>
-    </ion-grid>
+    <div *ngIf = "filters">
+        <div *ngFor = "let company of searchedCompanies">
+          <ion-row>
+            <app-company-card [company]="company" [filters] = "filters"> </app-company-card>
+          </ion-row>
+        </div>
+    </div>
 
 
   </ion-content>

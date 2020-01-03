@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Filter } from 'src/app/pages/home/models/filter';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Filter } from 'src/app/pages/home/models/filter';
 
 @Injectable({
   providedIn: 'root'
