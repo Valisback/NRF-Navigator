@@ -1,8 +1,8 @@
 {
   "name": "NRF_App",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Capgemini Applied Innovation Exchange",
+  "homepage": "https://www.capgemini.com/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -70,7 +70,7 @@
     "tslint": "~5.15.0",
     "typescript": "~3.4.3"
   },
-  "description": "An Ionic project",
+  "description": "Developed for NRF 2020 to guide visitors through the tour organized by the Capgemini AIE NYC Team",
   "cordova": {
     "plugins": {
       "cordova-plugin-nativestorage": {},

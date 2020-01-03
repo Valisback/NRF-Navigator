@@ -1,13 +1,11 @@
-import { Component, OnInit, OnDestroy, HostListener, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { MenuController, NavController, IonContent } from '@ionic/angular';
-import { DbCompanyService } from 'src/app/shared/services/company/db-company.service';
-import { Company } from 'src/app/shared/models/company';
-import { Filter } from './models/filter';
-import { Storage } from '@ionic/storage';
-import { StorageService } from 'src/app/shared/services/storage/storage.service';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { IonContent, MenuController, NavController } from '@ionic/angular';
 import { ScrollDetail } from '@ionic/core';
+import { Company } from 'src/app/shared/models/company';
+import { StorageService } from 'src/app/shared/services/storage/storage.service';
 import * as THREE from 'src/three.min.js';
 import RINGS from 'src/vanta.rings.min.js';
+import { Filter } from './models/filter';
  
 @Component({
   selector: 'app-home',
