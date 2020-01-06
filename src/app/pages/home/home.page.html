@@ -1,6 +1,7 @@
-<ion-content [scrollEvents]="true" no-bounce fullscreen (ionScroll)="onScroll($event)">
+<app-top-components homepage = 'true' [(showToolbar)] = "showToolbar" ></app-top-components>
 
-    <app-top-components homepage = 'true' [(showToolbar)] = "showToolbar" ></app-top-components>
+<ion-content [scrollEvents]="true" no-bounce (ionScroll)="onScroll($event)">
+
 
   <div #background class="background">
   

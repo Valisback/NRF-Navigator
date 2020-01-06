@@ -1,6 +1,6 @@
-<div class = "wrappingHeader" [ngStyle] = "{'position': fixed === true ? 'fixed' : 'relative'}">
+<!--<div class = "wrappingHeader">-->
 <ion-header no-border>
-  <ion-toolbar translucent [class.show-background]="showToolbar">
+  <ion-toolbar translucent [class.show-background]="true">
     <ion-buttons *ngIf="!homepage" slot="start">
       <ion-button fill="clear" color="tertiary" (click)="goBack()">
         
@@ -10,7 +10,7 @@
 
     </ion-buttons>
     <div style="padding-left: 5px; padding-top: 8px;">
-      <div *ngIf = "showToolbar; else noToolbar">
+      <div *ngIf = "false; else noToolbar">
       <img src="assets/homepage/Capgemini_AIE.png"
           class="Invent_Logo_WHITE_CMYK">
         </div>
@@ -26,9 +26,8 @@
         fill="clear"
         color="tertiary"
         default
-        menuToggle
       ></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-</div>
+<!--</div>-->

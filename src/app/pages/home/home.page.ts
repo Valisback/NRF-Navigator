@@ -81,6 +81,8 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     if (this.filters.length > 0 && this.allCompanies.length > 0) {
       this.storageService.updateData(this.filters, this.allCompanies, this.filteredCompanies);
     }
+
+    this.vantaEffect.destroy();
   }
 
   openFirst() {

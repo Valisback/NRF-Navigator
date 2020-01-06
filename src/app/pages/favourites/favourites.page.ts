@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { IonContent } from '@ionic/angular';
 import { ScrollDetail } from '@ionic/core';
 import { Company } from 'src/app/shared/models/company';
@@ -13,7 +13,7 @@ import { Filter } from '../home/models/filter';
   templateUrl: './favourites.page.html',
   styleUrls: ['./favourites.page.scss'],
 })
-export class FavouritesPage implements OnInit, AfterViewInit {
+export class FavouritesPage implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('vector', {static: false}) background: ElementRef;
   @ViewChild(IonContent, {static: false}) content: IonContent;
 
@@ -49,6 +49,10 @@ export class FavouritesPage implements OnInit, AfterViewInit {
       THREE: THREE,
       color: '#ed0677'
     });
+  }
+
+  ngOnDestroy() {
+    this.vantaEffect.destroy();
   }
 
   onScroll(event: CustomEvent<ScrollDetail>) {
