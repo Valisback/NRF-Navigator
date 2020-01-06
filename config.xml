@@ -5,6 +5,7 @@
     <author email="valentin.pereira@capgemini.com" href="http://capgemini.com/">Capgemini Applied Innovation Exchange</author>
     <content src="index.html" />
     <access origin="*" />
+    <allow-navigation href="*" />
     <allow-intent href="http://www.capgemini.com/" />
     <allow-intent href="https://www.capgemini.com/" />
     <allow-intent href="tel:*" />
