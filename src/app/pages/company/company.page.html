@@ -1,6 +1,6 @@
-<app-top-components [(showToolbar)] = "showToolbar" ></app-top-components>
 
-<ion-content [scrollEvents]="true" (ionScroll)="onScroll($event)">
+<ion-content [scrollEvents]="true" fullscreen (ionScroll)="onScroll($event)">
+  <app-top-components [(showToolbar)] = "showToolbar" ></app-top-components>
 
 
   <div class="feature-section" [style.height]="carouselHeight">

@@ -1,9 +1,9 @@
-<app-top-components [(showToolbar)] = "showToolbar"></app-top-components>
 
-<ion-content [scrollEvents]="true" no-bounce (ionScroll)="onScroll($event)">
+<ion-content [scrollEvents]="true" fullscreen no-bounce (ionScroll)="onScroll($event)">
 
     <div #background class="background">
-  
+      <app-top-components [(showToolbar)] = "showToolbar"></app-top-components>
+
       <div #vector class="background-vect"></div>
           <div class="shader-top">
         </div>
