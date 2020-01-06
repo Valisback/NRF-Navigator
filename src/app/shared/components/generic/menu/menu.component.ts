@@ -27,7 +27,7 @@ export class MenuComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.disableSwipe();
+    //this.disableSwipe();
     this.storageService.allCompanies.subscribe((cpies) => {
       this.allCompanies = cpies;
     });
