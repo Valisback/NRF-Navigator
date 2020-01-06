@@ -3,6 +3,7 @@ import { NavController, IonContent, MenuController } from '@ionic/angular';
 import { Company } from '../../../models/company';
 import { StorageService } from 'src/app/shared/services/storage/storage.service';
 import { Filter } from 'src/app/pages/home/models/filter';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class MenuComponent implements OnInit {
   @ViewChild(IonContent, {static: false}) content: IonContent;
 
   constructor(
+    private iab: InAppBrowser,
     private storageService: StorageService,
     public navCtrl: NavController,
     private menuCtrl: MenuController
@@ -80,6 +82,11 @@ export class MenuComponent implements OnInit {
       this.navCtrl.navigateForward('contact');
       this.menuCtrl.close();
     }
+  }
+
+  openLink(link: string) {
+    const browser = this.iab.create(link);
+    browser.show();
   }
 
   enableSwipe(): void {

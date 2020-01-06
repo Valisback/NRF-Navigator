@@ -8,6 +8,7 @@ import { DbCompanyService } from 'src/app/shared/services/company/db-company.ser
 import { StorageService } from 'src/app/shared/services/storage/storage.service';
 import { Filter } from '../home/models/filter';
 import { ModalPage } from './modal/modal.page';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 
 
@@ -55,7 +56,8 @@ export class CompanyPage implements OnInit {
                private loadingController: LoadingController,
                private domSanitizer: DomSanitizer,
                private storageService: StorageService,
-               public modalController: ModalController
+               public modalController: ModalController,
+               private iab: InAppBrowser,
   ) {
     this.company = null;
   }
@@ -99,6 +101,12 @@ async loadContent() {
 
 }
 
+  openLink(link: string) {
+    const browser = this.iab.create(link);
+    browser.show();
+  }
+
+  
 retrieveTags() {
   this.companyTags = [];
   if (this.company) {

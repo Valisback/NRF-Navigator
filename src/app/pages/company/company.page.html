@@ -40,8 +40,8 @@
         </app-accordion-panel>
     <app-expandable expandHeight="200px" [expanded]="newsroomExpanded">
       <div id = "content-text">
-        <a id = "content-text-news" [href]="company.news_link"> {{company.news_title}}</a> <br>
-        <a [href]="company.news_link"> <div id = "content-text-more"> Read the article </div> </a>
+        <a id = "content-text-news" (click) = "openLink(company.news_link)"> {{company.news_title}}</a> <br>
+        <a (click) = "openLink(company.news_link)"> <div id = "content-text-more"> Read the article </div> </a>
       </div>
     </app-expandable>
   </ion-row>
@@ -51,7 +51,7 @@
       <app-expandable expandHeight="200px" [expanded]="contactExpanded">
         <div id = "content-text">
           Headquarters:   {{ company.headquarters}} <br>
-          Website:   <a id = "content-text-website" [href]="company.website">{{ company.website}}</a>
+          Website:   <a id = "content-text-website" (click) = "openLink(company.website)">{{ company.website}}</a>
       </div>
       </app-expandable>
     </ion-row>

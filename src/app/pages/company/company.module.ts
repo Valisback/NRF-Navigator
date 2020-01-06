@@ -12,6 +12,7 @@ import { CompanyPageRoutingModule } from './company-routing.module';
 import { CompanyPage } from './company.page';
 import { AccordionPanelComponent } from './components/accordion-panel/accordion-panel.component';
 import { ModalPage } from './modal/modal.page';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 
 
@@ -33,5 +34,8 @@ import { ModalPage } from './modal/modal.page';
   declarations: [CompanyPage,
     ModalPage, ExpandableComponent, AccordionPanelComponent],
   entryComponents: [ModalPage],
+  providers: [
+    InAppBrowser
+  ]
 })
 export class CompanyPageModule {}

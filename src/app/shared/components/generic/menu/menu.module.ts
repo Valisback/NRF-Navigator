@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { CompanyCardModule } from '../../company-card/company-card.module';
 import { MenuComponent } from './menu.component';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 
 
@@ -18,5 +19,8 @@ import { MenuComponent } from './menu.component';
   exports: [
     MenuComponent
   ],
+  providers: [
+    InAppBrowser
+  ]
 })
 export class MenuModule {}

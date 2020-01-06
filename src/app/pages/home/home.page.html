@@ -17,7 +17,7 @@
 
 </div>
 
-<div *ngIf="filters && allCompanies && filteredCompanies; else noCompanies">
+<div *ngIf="filters.length>0 && allCompanies && filteredCompanies; else noCompanies">
     <ion-fab  [ngClass] ="fabButton && !fabButton_Active ? 'fabButton-active '+fabButton_Active : 'fabButton'" vertical="bottom" horizontal="start" style="position: fixed; bottom: 16px; left: 16px;" >
         <ion-fab-button color="secondary" [activated]="fabButton_Active" >
           <ion-icon style="font-size: 20px;" name="options" color="tertiary"></ion-icon>
@@ -55,7 +55,7 @@
       
       <!--<ion-grid class="grid-company-list"> -->
 
-          <div *ngIf="dataProcessed; else noCompanies">
+          <div *ngIf="dataProcessed && filters.length>0; else noCompanies">
             <ion-row>
               <div id="company-list-title">
                 Viewing <span id="strong"> all </span> curated companies
