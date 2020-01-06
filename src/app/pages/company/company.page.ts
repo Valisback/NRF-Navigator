@@ -102,11 +102,11 @@ async loadContent() {
 }
 
   openLink(link: string) {
-    const browser = this.iab.create(link);
+    const browser = this.iab.create(link, '_system');
     browser.show();
   }
 
-  
+
 retrieveTags() {
   this.companyTags = [];
   if (this.company) {

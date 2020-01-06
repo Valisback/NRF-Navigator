@@ -85,7 +85,7 @@ export class MenuComponent implements OnInit {
   }
 
   openLink(link: string) {
-    const browser = this.iab.create(link);
+    const browser = this.iab.create(link, '_system');
     browser.show();
   }
 
