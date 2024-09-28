@@ -1,7 +1,7 @@
 # ![NRF Tour 2020](nrf-expo-2020.webp)
 ### Just try it: [Demo](https://nrf-app-57f10.firebaseapp.com/) (This app is meant to be used on mobile or tablet)
 
-The Capgemini Expo Guide for NRF 2020 has been created to allow clients and users to access the list of most relevant startups, previously curated by the team, while being able to filter them based on their specific interests. This app is cross-platform and relying on Ionic and the Angular Framework, with a Firebase backend. It is aimed to be used mainly on mobile and tablet.
+The Capgemini Expo Guide for the National Retail Federation (NRF) has been created to allow clients and users to access the list of most relevant startups, previously curated by the team, while being able to filter them based on their specific interests. This app is cross-platform and relying on Ionic and the Angular Framework, with a Firebase backend. It is aimed to be used mainly on mobile and tablet.
 
 - [Getting started](#getting_started)
 - [Running the app](#running)
